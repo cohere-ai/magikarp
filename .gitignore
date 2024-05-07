@@ -1,3 +1,17 @@
+
+
+# verification results are commited only in jsonl.gz
+results/verification/*.jsonl
+
+# space for gitignored experiments and hq figures
+experiments/
+local*.*
+*log*.txt
+*.npy
+*.svg
+*.zip
+*hires.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -258,15 +258,21 @@ def make_tokens_report(model_id, toka, moda, token_infos, metric_ix, save_hires=
         ti for ti in token_infos.values() if "UNDECODEABLE" in ti["category"] and ti["i"] not in exclude
     ]
 
+    # plot verifications first, so we can look at them even if we don't have a threshold
+    _, verification_filename = verification_plot(
+        model_id, verification_candidates, metric_names[metric_ix], save_hires=save_hires
+    )
+    _, metrics_filename = metrics_pairplot(token_infos, toka, moda, color_by_id=True, save_hires=save_hires)
+
+    # find threshold for table collapse
     p_verify_threshold = 0.01
     window = 12
     frac_verified_thr = 2.0 / 3
     verifications_below_threshold = np.array([c["max_prob"] < p_verify_threshold for c in candidates_without_excl])
 
     first_below_thr = window
-    while first_below_thr + window < len(
-        candidates_without_excl
-    ):  # find threshold where verification rate drops below 2/3
+    # find threshold where verification rate drops below 2/3
+    while first_below_thr + window < len(candidates_without_excl):
         if (
             verifications_below_threshold[first_below_thr - window : first_below_thr + window + 1].mean()
             < frac_verified_thr
@@ -315,12 +321,6 @@ def make_tokens_report(model_id, toka, moda, token_infos, metric_ix, save_hires=
         threshold=candidates_threshold,
         find_superstrings_in=token_infos.values(),
     )
-
-    # plot verifications
-    _, verification_filename = verification_plot(
-        model_id, verification_candidates, metric_names[metric_ix], save_hires=save_hires
-    )
-    _, metrics_filename = metrics_pairplot(token_infos, toka, moda, color_by_id=True, save_hires=save_hires)
 
     # make a giant markdown file and write it
 

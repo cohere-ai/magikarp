@@ -1,6 +1,6 @@
-# Code for the paper "Fishing for Magikarps"
+# Code for the paper "Fishing for Magikarp"
 
-Paper: [add link]
+This repository contains the code and extended results for the paper [Fishing for Magikarp: Automatically Detecting Under-trained Tokens in Large Language Models](https://arxiv.org/abs/2405.05417)
 
 ## Exploring Results
 
@@ -13,7 +13,7 @@ The most interesting thing in this repository is probably the detailed reports, 
 
 ### Setup
 
-<details><summary>This is a standard [poetry](https://python-poetry.org/) project.</summary>
+<details><summary>This is a standard <a href="https://python-poetry.org/">poetry</a> project.</summary>
 
 ```bash
 poetry shell   # make/activate your virtual environment
@@ -26,14 +26,14 @@ poetry install # only the first time or on updates
 
 See `run_verification.sh` for some example commands for running new models. The script itself is mainly a reference for reproducibility and it is not recommended to run.
 
-For models with tied embeddings, or for nicer visualizations, you will need to hard-code some unused token ids in `magikarp/unused_tokens.py`.
+For models with tied embeddings, or for nicer visualizations and results, you will need to hard-code some unused token ids in `magikarp/unused_tokens.py`.
 
 * If a related model already exists, copying the token ids is likely to work just fine.
 * For non-tied embeddings you can typically just let verification finish, and update unused tokens after you get the results.
 * For the rare case of new model families with tied embeddings:
     * Take a guess, like `[0]`, or use the tokenizer vocabulary to pick some.
-    * Run the `fishing.py` script and kill it when it starts verifying.
-    * You now have `verifications/yourmodel.jsonl` which allows you to look at the vocabulary and update suitable tokens.
+    * Run the `magikarp/fishing.py` script and kill it when it starts verifying.
+    * You now have `results/verifications/yourmodel.jsonl` which allows you to look at the vocabulary and update suitable tokens.
     * Update your unused tokens, and run verification.
 
 ### Generating results

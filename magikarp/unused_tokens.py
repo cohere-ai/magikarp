@@ -16,6 +16,9 @@ STARCODER2_UNUSED_TOKENS = [23519, 12740, 27012]  # found after using L2 norm
 YI_UNUSED_TOKENS = np.arange(145, 305)  #  <|unused_token
 JAMBA_UNUSED_TOKENS = np.arange(4, 515)  # <|maskxxx|>
 
+DEEPSEEK_LANG_UNUSED_TOKENS = np.arange(100002, 100015)  # unused utf8
+DEEPSEEK_CODE_UNUSED_TOKENS = np.arange(171, 173)  # f1/f2
+
 # Defines reference unused tokens for models
 # optional for most models, but also functions as a kind of registry of models to process
 UNUSED_TOKENS = {
@@ -66,4 +69,6 @@ UNUSED_TOKENS = {
     "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
     "01-ai/Yi-9B": YI_UNUSED_TOKENS,
     "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
+    "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
+    "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,
 }

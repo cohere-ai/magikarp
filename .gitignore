@@ -1,7 +1,7 @@
 
 
 # verification results are commited only in jsonl.gz
-results/verification/*.jsonl
+results/verifications/*.jsonl
 
 # space for gitignored experiments and hq figures
 experiments/

@@ -49,7 +49,8 @@ If you want to contribute results for additional models, please include:
   * A line in `run_verification.sh`
   * All files in `results` that are not `.gitignore`'d
 
+## Model requests
 
-
+If you know of a model that may be interesting to analyze, but do not have the resources to run it yourself, feel free to open an issue. Please add the Hugging Face id, some information on how it is interesting in terms of tokenization, and keep in mind that the larger the model is, the less likely it is to be prioritized.
 
 

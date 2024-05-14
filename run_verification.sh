@@ -61,12 +61,17 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "Qwen/Qwen1.5-72B-Chat"
             python magikarp/fishing.py --model_id "stabilityai/stablelm-2-12b" --trust-remote-code # missing weights if not trust remote
             python magikarp/fishing.py --model_id "meta-llama/Meta-Llama-3-8B"
+            python generate_results.py "Qwen|Llama-3" --load
+            python generate_results.py "stablelm" --load --trust-remote-code
             ;;
         "misc")
             python magikarp/fishing.py --model_id "01-ai/Yi-9B"
             python magikarp/fishing.py --model_id "bigcode/starcoder2-15b"
             python magikarp/fishing.py --model_id "ai21labs/Jamba-v0.1" --trust_remote_code
-            python generate_results.py "Yi-9B|starcoder2|Jamba" --load
+            python magikarp/fishing.py --model_id "Fugaku-LLM/Fugaku-LLM-13B"
+            python generate_results.py "Yi-9B|starcoder2|Jamba|Fugaku" --load
+            python magikarp/fishing.py --model_id "m-a-p/neo_7b" --trust-remote-code
+            python generate_results.py "m-a-p" --load --trust-remote-code
             ;;
         *)
             echo "Error: Invalid argument '$arg'. Supported arguments are: 'gpt2', 'neox', 'llama2', 'mistral', 'gemma', 'cohere', 'tiktoken', 'misc'"

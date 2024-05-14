@@ -18,6 +18,8 @@ JAMBA_UNUSED_TOKENS = np.arange(4, 515)  # <|maskxxx|>
 
 DEEPSEEK_LANG_UNUSED_TOKENS = np.arange(100002, 100015)  # unused utf8
 DEEPSEEK_CODE_UNUSED_TOKENS = np.arange(171, 173)  # f1/f2
+MAP_NEO_UNUSED_TOKENS = np.arange(248, 259)  # unused 245-255 fallback
+FUGAKU_UNUSED_TOKENS = np.arange(278,289) # unused 245-255 fallback
 
 # Defines reference unused tokens for models
 # optional for most models, but also functions as a kind of registry of models to process
@@ -36,6 +38,7 @@ UNUSED_TOKENS = {
     "openai-community/gpt2-xl": GPT2_UNUSED_TOKENS,
     "EleutherAI/gpt-j-6b": GPT2_UNUSED_TOKENS,
     "microsoft/phi-2": GPT2_UNUSED_TOKENS,
+    "benjamin/Mistral-7B-v0.1-zett-gpt2": [x+3 for x in GPT2_UNUSED_TOKENS],
     # llama2 and variants
     "meta-llama/Llama-2-13b-hf": LLAMA2_UNUSED_TOKENS,
     "meta-llama/Llama-2-7b-hf": LLAMA2_UNUSED_TOKENS,
@@ -47,7 +50,6 @@ UNUSED_TOKENS = {
     "EleutherAI/gpt-neox-20b": NEOX_UNUSED_TOKENS,
     "allenai/OLMo-7B-hf": OLMO_UNUSED_TOKENS,  # required since we use secondary metric
     "allenai/OLMo-1.7-7B-hf": OLMO_UNUSED_TOKENS,  # required since we use secondary metric
-    #    "allenai/OLMo-1.7-7B": OLMO_UNUSED_TOKENS,# required since we use secondary metric
     # mistral variants
     "mistralai/Mistral-7B-v0.1": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mistral-7B-Instruct-v0.2": MISTRAL_UNUSED_TOKENS,
@@ -68,7 +70,10 @@ UNUSED_TOKENS = {
     # others
     "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
     "01-ai/Yi-9B": YI_UNUSED_TOKENS,
+    "01-ai/Yi-1.5-9B": YI_UNUSED_TOKENS,
     "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
     "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,
+    "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
+    "Fugaku-LLM/Fugaku-LLM-13B": FUGAKU_UNUSED_TOKENS,
 }

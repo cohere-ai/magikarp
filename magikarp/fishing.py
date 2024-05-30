@@ -139,6 +139,7 @@ def load_analyzers(
                 token_infos[token_id][k] = res[k]  # overwritten if not avoid_loading_model
             if "verification" in token_infos[token_id]:
                 classify_verification(token_infos[token_id])
+    write_verification_results(token_infos, model_id)  # mainly for first inspection
 
     if not avoid_loading_model:  # by default we don't trust saved results for easy experimentation
         moda = ModelAnalyzer(

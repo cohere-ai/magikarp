@@ -38,7 +38,7 @@ For models with tied embeddings, or for nicer visualizations and results, you wi
 
 ### Generating results
 
-* `generate_results.py`: Generates plots and markdown reports. Typically after finishing verification you should `python generate_results.py [your_model_id]` and then look in `results`.
+* `generate_results.py`: Generates plots and markdown reports. This happens automatically after verification, but to regenerate you can `python generate_results.py [your_model_id]` and then look in `results`.
 
 
 ## Contributing

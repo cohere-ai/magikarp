@@ -8,9 +8,15 @@ import torch
 from magikarp.model import ModelAnalyzer
 from magikarp.tokenization import TokenizerAnalyzer, model_needs_fast_tokenizer
 from magikarp.unused_tokens import UNUSED_TOKENS
-from magikarp.utils import load_verification_results, write_verification_results
+from magikarp.utils import (
+    load_verification_results,
+    write_verification_results,
+    candidates_for_verification,
+    select_placeholder_token,
+    DEFAULT_THRESHOLD_PERCENTILE,
+)
+from magikarp.report import make_tokens_report
 
-DEFAULT_THRESHOLD_PERCENTILE = 2.0
 VERIFICATION_PROMPTS = [
     (
         "input_output",
@@ -117,7 +123,7 @@ def load_analyzers(
     load_verifications: bool = True,
     use_fast: Optional[bool] = None,
     trust_remote_code: bool = False,
-    metric_ix: int = 0,
+    indicator_ix: int = 0,
 ) -> tuple[TokenizerAnalyzer, Optional[ModelAnalyzer], dict]:
     toka = TokenizerAnalyzer(model_id, use_fast=use_fast, trust_remote_code=trust_remote_code)
 
@@ -134,8 +140,8 @@ def load_analyzers(
 
     if load_verifications and loaded_results:
         for token_id, res in loaded_results.items():
-            # ONLY load verification and maybe metrics, the rest was saved just for debugging
-            for k in {"metrics", "metric_names", "verification"} & set(res.keys()):
+            # ONLY load verification and maybe indicators + cached token 0, the rest was saved just for debugging
+            for k in {"indicators", "indicator_names", "verification", "model_info"} & set(res.keys()):
                 token_infos[token_id][k] = res[k]  # overwritten if not avoid_loading_model
             if "verification" in token_infos[token_id]:
                 classify_verification(token_infos[token_id])
@@ -148,61 +154,19 @@ def load_analyzers(
             vocab_size_lb=len(toka.vocab_i2s),
             trust_remote_code=trust_remote_code,
         )
-        for token_id, metrics in enumerate(moda.undertrained_token_metrics):
+        for token_id, indicators in enumerate(moda.undertrained_token_indicators):
             if token_id in token_infos:
-                token_infos[token_id]["metrics"] = [float(x) for x in metrics]  # json friendly
-            if token_id == 0:  # a bit of a hack but eh
-                token_infos[token_id]["metric_names"] = moda.metric_names
+                token_infos[token_id]["indicators"] = [float(x) for x in indicators]  # json friendly
+            if token_id == 0:  # a bit of a hack but we really would like to avoid loading the model if we can
+                token_infos[token_id].update(moda.model_info())
     else:
         moda = None
 
     for i, ti in token_infos.items():
-        ti["main_metric"] = ti["metrics"][metric_ix]
+        if "indicators" in ti:
+            ti["main_indicator"] = ti["indicators"][indicator_ix]
 
     return toka, moda, token_infos
-
-
-def candidates_for_verification(token_infos, threshold_ratio=DEFAULT_THRESHOLD_PERCENTILE, threshold=None):
-    if threshold is None:
-        threshold = np.percentile(
-            [tc["main_metric"] for tc in token_infos.values() if tc["category"] == "OK"],
-            threshold_ratio,
-        )
-        print(
-            f"Using threshold {threshold:.3f} as {threshold_ratio:.1f}% of tokens to verify with vocab size {len(token_infos)}."
-        )
-    candidates = sorted(
-        [tc for tc in token_infos.values() if tc["main_metric"] <= threshold and tc["category"].startswith("OK")],
-        key=lambda tc: tc["main_metric"],
-    )
-    return candidates, threshold
-
-
-def select_placeholder_token(toka, token_infos: dict) -> dict:
-    # we use a long non-repetitive alphabetical token as a placeholder in building prompts for the verification
-    build_prompt_tokens = sorted(
-        token_infos.values(),
-        key=lambda tc: (
-            tc["category"] == "OK",
-            tc["decoded"].isalpha(),
-            len(set(tc["decoded"])),
-            len(tc["decoded"]),
-        ),
-        reverse=True,
-    )
-    for build_prompt_token in build_prompt_tokens:
-        two_repeats = [build_prompt_token["i"], build_prompt_token["i"]]
-        s = toka.clean_decode(two_repeats)
-        if toka.clean_encode(s) != two_repeats:
-            print(
-                f"Skipping token #{build_prompt_token['i']} {build_prompt_token['decoded']!r} as placeholder in building verification prompts due to encoding issues."
-            )
-        else:
-            break
-    print(
-        f"Using token #{build_prompt_token['i']} {build_prompt_token['decoded']!r} as placeholder in building verification prompts."
-    )
-    return build_prompt_token
 
 
 def main(
@@ -212,7 +176,7 @@ def main(
     threshold_ratio: float = DEFAULT_THRESHOLD_PERCENTILE,  # % of tokens to verify
     known_unused_tokens: Optional[list[int]] = None,
     overwrite: bool = False,
-    metric_ix: int = 0,  # index of metric to use, default is nearly always ok, use visualize_metrics.ipynb to check
+    indicator_ix: int = 0,  # index of metric to use, default is nearly always ok, use visualize_metrics.ipynb to check
     device: str = "cpu",
 ):
     known_unused_tokens = known_unused_tokens or UNUSED_TOKENS.get(model_id, [])
@@ -222,7 +186,7 @@ def main(
         known_unused_tokens=known_unused_tokens,
         load_verifications=not overwrite,
         trust_remote_code=trust_remote_code,
-        metric_ix=metric_ix,
+        indicator_ix=indicator_ix,
     )
     assert moda is not None  # for type checker
 
@@ -232,7 +196,7 @@ def main(
     remaining_candidates = [tc for tc in candidates if "verification" not in tc]
     write_verification_results(token_infos, model_id)
     print(
-        f"Verifying {len(remaining_candidates)} of total {len(candidates)} candidates below threshold {threshold:.3f} of {moda.metric_names[metric_ix]!r} for model {model_id} with vocab size {len(token_infos)} on device {device}."
+        f"Verifying {len(remaining_candidates)} of total {len(candidates)} candidates below threshold {threshold:.3f} of {moda.indicator_names[indicator_ix]!r} for model {model_id} with vocab size {len(token_infos)} on device {device}."
     )
 
     build_prompt_token = select_placeholder_token(toka, token_infos)
@@ -251,6 +215,7 @@ def main(
         "Finished verification, wrote results to",
         write_verification_results(token_infos, model_id),
     )
+    make_tokens_report(model_id, toka, moda, token_infos, indicator_ix)
 
 
 if __name__ == "__main__":

@@ -3,8 +3,8 @@
 ## Model info
 
 * Tied embeddings: no
-* Unembeddings use bias: no
-* Metric for under-trained tokens: Embeddings L2 Norm
+* LM head uses bias: no
+* Metric for under-trained tokens: E_{in} L2 Norm
   * Overall distribution 0.650 +/- 0.182
   * Token used for verification prompt building: `abcdefghijklmnopqrstuvwxyz`
   * Verification threshold: 0.127
@@ -14,12 +14,12 @@
 * Vocabulary size: 151646
   * Number of single byte tokens: 256, of which 14 below metric threshold
   * Number of special tokens: 6, of which 5 below metric threshold
-  * Number of unreachable non-single-byte tokens: 1906, of which 1906 below metric threshold
+  * Number of non-single-byte unreachable tokens: 1906, of which 1906 below metric threshold
   * Number of non-single-byte UTF-fragment tokens: 1320, 126 below soft metric threshold
-  * Number of tested under-trained tokens: 2966, 2723 below p = 0.01 threshold, 2512 below soft metric threshold
+  * Number of tested under-trained tokens: 2966, 2966 non-special, 2723 below p = 0.01 threshold, 2512 below soft metric threshold
 
-## Metrics plot
-![Metrics pairplot](../metrics_pairplot_byid/Qwen_Qwen1_5_MoE_A2_7B.png)
+## Under-trained token indicators plot
+![Indicators scatter plots](../indicators_pairplot_byid/Qwen_Qwen1_5_MoE_A2_7B.png)
 
 ## Verification plot
 ![Verification plot](../verifications_scatterplot/Qwen_Qwen1_5_MoE_A2_7B.png)
@@ -3006,7 +3006,7 @@
 |     140573 | ````` مياه `````            | 0.127366 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0074</span>  |                                                                                                                                                                                                                             |
 </details>
 
-## Undecodable tokens
+## Partial UTF-8 tokens
 126 entries below threshold of 0.112
 
 |   token_id | token                            |      metric | in_other_tokens                                                                                 |

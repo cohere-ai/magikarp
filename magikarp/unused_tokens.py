@@ -8,18 +8,19 @@ TIKTOKEN_UNUSED_TOKENS = GPT2_UNUSED_TOKENS
 LLAMA2_UNUSED_TOKENS = np.arange(58, 130)  # duplicate single byte
 MISTRAL_UNUSED_TOKENS = np.arange(14, 131)  # duplicate single byte ascii 0x0B to 0x7F
 
-NEOX_UNUSED_TOKENS = np.arange(50277, 50432)  # unused above vocab size
 OLMO_UNUSED_TOKENS = np.arange(50280, 50304)  # unused above vocab size
-NEOX_UNUSED_TOKENS = [173]  # TODO: which one?
+NEOX_UNUSED_TOKENS = [173]  # 0xf1
 
 STARCODER2_UNUSED_TOKENS = [23519, 12740, 27012]  # found after using L2 norm
 YI_UNUSED_TOKENS = np.arange(145, 305)  #  <|unused_token
 JAMBA_UNUSED_TOKENS = np.arange(4, 515)  # <|maskxxx|>
 
-DEEPSEEK_LANG_UNUSED_TOKENS = np.arange(100002, 100015)  # unused utf8
-DEEPSEEK_CODE_UNUSED_TOKENS = np.arange(171, 173)  # f1/f2
+# Use embeddings above vocab size - note: no weight decay in embeddings for these models
+DEEPSEEK_CODE_UNUSED_TOKENS = np.arange(32050, 32250)
+DEEPSEEK_LANG_UNUSED_TOKENS = np.arange(101000, 102000)
+
 MAP_NEO_UNUSED_TOKENS = np.arange(248, 259)  # unused 245-255 fallback
-FUGAKU_UNUSED_TOKENS = np.arange(278,289) # unused 245-255 fallback
+FUGAKU_UNUSED_TOKENS = np.arange(278, 289)  # unused 245-255 fallback
 
 # Defines reference unused tokens for models
 # optional for most models, but also functions as a kind of registry of models to process
@@ -38,7 +39,7 @@ UNUSED_TOKENS = {
     "openai-community/gpt2-xl": GPT2_UNUSED_TOKENS,
     "EleutherAI/gpt-j-6b": GPT2_UNUSED_TOKENS,
     "microsoft/phi-2": GPT2_UNUSED_TOKENS,
-    "benjamin/Mistral-7B-v0.1-zett-gpt2": [x+3 for x in GPT2_UNUSED_TOKENS],
+    "benjamin/Mistral-7B-v0.1-zett-gpt2": [x + 3 for x in GPT2_UNUSED_TOKENS],
     # llama2 and variants
     "meta-llama/Llama-2-13b-hf": LLAMA2_UNUSED_TOKENS,
     "meta-llama/Llama-2-7b-hf": LLAMA2_UNUSED_TOKENS,
@@ -53,13 +54,13 @@ UNUSED_TOKENS = {
     # mistral variants
     "mistralai/Mistral-7B-v0.1": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mistral-7B-Instruct-v0.2": MISTRAL_UNUSED_TOKENS,
+    "mistralai/Mistral-7B-v0.3": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mixtral-8x7B-v0.1": MISTRAL_UNUSED_TOKENS,
     "HuggingFaceH4/zephyr-7b-beta": MISTRAL_UNUSED_TOKENS,
     "Rakuten/RakutenAI-7B": MISTRAL_UNUSED_TOKENS,  # extended tokenizer, same unused
     "upstage/SOLAR-10.7B-v1.0": MISTRAL_UNUSED_TOKENS,
     "h2oai/h2o-danube2-1.8b-base": MISTRAL_UNUSED_TOKENS,
     "Nexusflow/Starling-LM-7B-beta": MISTRAL_UNUSED_TOKENS,
-    "microsoft/WizardLM-2-7B": MISTRAL_UNUSED_TOKENS,
     # tiktoken
     "Qwen/Qwen1.5-MoE-A2.7B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen1.5-72B-Chat": TIKTOKEN_UNUSED_TOKENS,
@@ -67,13 +68,19 @@ UNUSED_TOKENS = {
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-70B": TIKTOKEN_UNUSED_TOKENS,
-    # others
-    "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
-    "01-ai/Yi-9B": YI_UNUSED_TOKENS,
-    "01-ai/Yi-1.5-9B": YI_UNUSED_TOKENS,
-    "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
+    # deepseek
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
     "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,
-    "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
+    "deepseek-ai/deepseek-math-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
+    "chuxin-llm/Chuxin-1.6B-Base": DEEPSEEK_LANG_UNUSED_TOKENS,
+    # yi
+    "01-ai/Yi-9B": YI_UNUSED_TOKENS,
+    "01-ai/Yi-1.5-9B": YI_UNUSED_TOKENS,
+    # unigram
     "Fugaku-LLM/Fugaku-LLM-13B": FUGAKU_UNUSED_TOKENS,
+    "facebook/xglm-7.5B": np.arange(256001, 256008),  # <madeupword>
+    # others
+    "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
+    "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
+    "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
 }

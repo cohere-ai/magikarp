@@ -8,7 +8,7 @@ import seaborn as sns
 import tabulate
 
 from magikarp.tokenization import TokenizerAnalyzer
-from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos
+from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos,escape_token_for_markdown
 
 
 plt.rcParams["text.usetex"] = True
@@ -65,7 +65,7 @@ def indicators_pairplot(
     if color_by_id:
         p = sns.color_palette("crest", as_cmap=True)
         nt = undertrained_token_indicators.shape[0]
-        plot_kws["c"] = [p(i / nt) for i in range(nt)]
+        plot_kws["c"] = [p(i / (nt-1)) for i in range(nt)]
 
     g = sns.pairplot(
         indicators_df.fillna(0),
@@ -160,11 +160,7 @@ def make_tokens_table(
 
     def token_as_markdown(i, color=False):
         token = toka.vocab_to_readable_string(i)
-        token = repr(token)[1:-1]  # escape \n, unicode, etc
-        token = token.replace(" ", "▁")  # make spaces show clearly
-        token = token.replace("\\\\", "\\")  # un-escape \
-        token = token.replace("|", r"\|")  # breaks tables
-        token = f"````` {token} `````"  # more ` such that even ```` in tokens doesn't break markdown
+        token = escape_token_for_markdown(token, code_tags=True)
         if color and (sp := superstring_token_to_maxprob.get(i)) is not None:
             token = color_format_proba(sp, token)
         return token
@@ -246,7 +242,8 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             break
         first_below_thr += 1
     else:
-        raise ValueError("No threshold detected")
+        print("No threshold detected - using last token as threshold.")
+        first_below_thr = len(categorized_tokens.candidates_nosb) - 1
     candidates_threshold = categorized_tokens.candidates_nosb[first_below_thr - 1]["main_indicator"]
     cand_below_threshold = [
         c["main_indicator"] for c in categorized_tokens.candidates_nosb if c["max_prob"] < p_verify_threshold
@@ -338,7 +335,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
         # tables
         markdown_report += f"\n## Under-trained token verification results\n{magikarps_report}\n"
         if categorized_tokens.partial_utf8:
-            markdown_report += f"\n## Partial UTF-8 tokens\n{undecodable_report}\n"
+            markdown_report += f"\n## Tokens with partial UTF-8 sequences\n{undecodable_report}\n"
 
         markdown_report += f"\n## Byte tokens\n{bytes_report}\n"
         markdown_report += f"\n## Special tokens\n{special_report}\n"

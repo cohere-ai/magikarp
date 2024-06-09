@@ -28,6 +28,7 @@ UNUSED_TOKENS = {
     ## required: cohere
     "CohereForAI/c4ai-command-r-v01": COHERE_UNUSED_TOKENS,
     "CohereForAI/c4ai-command-r-plus": COHERE_UNUSED_TOKENS,
+    "CohereForAI/aya-23-35B": COHERE_UNUSED_TOKENS,
     # required: gemma
     "google/gemma-7b": GEMMA_UNUSED_TOKENS,
     "google/gemma-2b": GEMMA_UNUSED_TOKENS,
@@ -46,6 +47,7 @@ UNUSED_TOKENS = {
     "meta-llama/Llama-2-70b-hf": LLAMA2_UNUSED_TOKENS,
     "152334H/miqu-1-70b-sf": LLAMA2_UNUSED_TOKENS,
     "microsoft/Phi-3-mini-128k-instruct": LLAMA2_UNUSED_TOKENS,
+    "Skywork/Skywork-13B-base": LLAMA2_UNUSED_TOKENS,
     # neox and variants
     "EleutherAI/pythia-6.9b": NEOX_UNUSED_TOKENS,
     "EleutherAI/gpt-neox-20b": NEOX_UNUSED_TOKENS,
@@ -56,6 +58,7 @@ UNUSED_TOKENS = {
     "mistralai/Mistral-7B-Instruct-v0.2": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mistral-7B-v0.3": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mixtral-8x7B-v0.1": MISTRAL_UNUSED_TOKENS,
+     "mistralai/Codestral-22B-v0.1": MISTRAL_UNUSED_TOKENS,
     "HuggingFaceH4/zephyr-7b-beta": MISTRAL_UNUSED_TOKENS,
     "Rakuten/RakutenAI-7B": MISTRAL_UNUSED_TOKENS,  # extended tokenizer, same unused
     "upstage/SOLAR-10.7B-v1.0": MISTRAL_UNUSED_TOKENS,
@@ -65,6 +68,7 @@ UNUSED_TOKENS = {
     "Qwen/Qwen1.5-MoE-A2.7B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen1.5-72B-Chat": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen1.5-32B": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen2-57B-A14B": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-70B": TIKTOKEN_UNUSED_TOKENS,

@@ -57,7 +57,7 @@ class ModelAnalyzer:
     # for plot labels and such
     INDICATOR_EOUT_CD_NAME = "E_{out} Cosine Distance"
     INDICATOR_EOUT_WO1PC_CD_NAME = "E_{out} Cosine Distance w/o 1st PC"
-    INDICATOR_EOUT_CENTERED_CD_NAME = "Centered E_{out} Cosine Distance"
+    INDICATOR_EOUT_CENTERED_CD_NAME = "E_{out} Cosine Distance Centered"
     INDICATOR_EOUT_L2DIST_NAME = "E_{out} L2 Distance"
     INDICATOR_EOUT_BIAS_NAME = "E_{out} Bias"
     INDICATOR_EIN_L2NORM_NAME = "E_{in} L2 Norm"

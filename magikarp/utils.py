@@ -81,20 +81,23 @@ def embedding_distance_metrics(mat: np.ndarray, known_unused_tokens: List[int]) 
     """
     assert mat.shape[0] > mat.shape[1], "Expected more tokens than dimensions"
 
-    pca = PCA(n_components=1)
-    pca.fit(mat)
-    first_pc = pca.components_[0]
-
-    mat_without_first_pc = mat - np.outer(mat.dot(first_pc), first_pc)
-
     mean_unused_vector = mat[known_unused_tokens].mean(axis=0)
-    mean_unused_vector_without_first_pc = mat_without_first_pc[known_unused_tokens].mean(axis=0)
+    l2_distance = np.linalg.norm(mat - mean_unused_vector, axis=1)
 
     mean_row = mat.mean(axis=0)
     mat_without_mean = mat - mean_row
     mean_unused_vector_without_matmean = mat_without_mean[known_unused_tokens].mean(axis=0)
 
-    l2_distance = np.linalg.norm(mat - mean_unused_vector, axis=1)
+    n_comp = 1
+    pca = PCA(n_components=n_comp)
+    pca.fit(mat)
+    mat_without_first_pc = mat
+    for i in range(n_comp):
+        pca_component = pca.components_[i]
+        mat_without_first_pc = mat_without_first_pc - np.outer(mat_without_first_pc.dot(pca_component), pca_component)
+    mean_unused_vector_without_first_pc = mat_without_first_pc[known_unused_tokens].mean(axis=0)
+
+
     return DistanceMetrics(
         cosine_distance=cosine_distance(mat, mean_unused_vector),
         cosine_distance_without_first_pc=cosine_distance(mat_without_first_pc, mean_unused_vector_without_first_pc),
@@ -177,7 +180,14 @@ from transformers.utils import cached_file
 from transformers.tokenization_utils_base import TOKENIZER_CONFIG_FILE, FULL_TOKENIZER_FILE
 from transformers.models.auto.tokenization_auto import get_tokenizer_config
 
-
+def escape_token_for_markdown(token, code_tags=True):
+    token = repr(token)[1:-1]  # escape \n, unicode, etc
+    token = token.replace(" ", "▁")  # make spaces show clearly
+    token = token.replace("\\\\", "\\")  # un-escape \
+    token = token.replace("|", r"\|")  # breaks tables
+    if code_tags:
+        token = f"````` {token} `````"  # more ` such that even ```` in tokens doesn't break markdown
+    return token
 
 
 def find_byte_tokens(toka: "TokenizerAnalyzer", token_infos: dict[int, dict]) -> dict[int, dict]:
@@ -300,10 +310,12 @@ def get_huggingface_tokenizer_info(model_id, toka, token_infos):
             tokenizer_info["Dropout"] = dropout
 
     # patch up some blanks which fail the above detection
-    if any(s in model_id for s in ["/gpt2", "/miqu"]) and "Tokenizer Type" not in tokenizer_info:
+    if any(s in model_id for s in ["/gpt2", "/miqu","/neo_7b"]) and "Tokenizer Type" not in tokenizer_info:
         tokenizer_info["Tokenizer Type"] = "BPE"
     if any(s in model_id for s in ["/miqu"]) and "Bytes handling" not in tokenizer_info:
         tokenizer_info["Bytes handling"] = "Byte Fallback"  # just llama2    
+    if any(s in model_id for s in ["/neo_7b"]) and "Bytes handling" not in tokenizer_info:
+        tokenizer_info["Bytes handling"] = "Byte Input" # according to comments in source
 
     return tokenizer_info
 

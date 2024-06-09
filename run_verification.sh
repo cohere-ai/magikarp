@@ -18,7 +18,7 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "EleutherAI/gpt-neox-20b" # --threshold_ratio 100
             python magikarp/fishing.py --model_id "EleutherAI/pythia-6.9b"
             python magikarp/fishing.py --model_id "allenai/OLMo-7B-hf"  --indicator_ix 1
-            python magikarp/fishing.py --model_id "allenai/OLMo-1.7-7B-hf" --indicator_ix 1 # --threshold_ratio 100
+            python magikarp/fishing.py --model_id "allenai/OLMo-1.7-7B-hf" # --threshold_ratio 100
             ;;
         "llama2")
             python magikarp/fishing.py --model_id "meta-llama/Llama-2-7b-hf"
@@ -26,12 +26,14 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "meta-llama/Llama-2-70b-hf"
             python magikarp/fishing.py --model_id "152334H/miqu-1-70b-sf"
             python magikarp/fishing.py --model_id "microsoft/Phi-3-mini-128k-instruct"  --trust-remote-code
+            python magikarp/fishing.py --model_id "Skywork/Skywork-13B-base" --trust-remote-code
             ;;        
         "mistral")
             python magikarp/fishing.py --model_id "mistralai/Mistral-7B-v0.1"
             python magikarp/fishing.py --model_id "mistralai/Mistral-7B-Instruct-v0.2"
             python magikarp/fishing.py --model_id "mistralai/Mistral-7B-v0.3"
             python magikarp/fishing.py --model_id "mistralai/Mixtral-8x7B-v0.1"
+            python magikarp/fishing.py --model_id "mistralai/Codestral-22B-v0.1"
             python magikarp/fishing.py --model_id "HuggingFaceH4/zephyr-7b-beta" #--threshold_ratio 100
             python magikarp/fishing.py --model_id "upstage/SOLAR-10.7B-v1.0"
             python magikarp/fishing.py --model_id "Rakuten/RakutenAI-7B" 

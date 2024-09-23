@@ -97,7 +97,6 @@ def embedding_distance_metrics(mat: np.ndarray, known_unused_tokens: List[int]) 
         mat_without_first_pc = mat_without_first_pc - np.outer(mat_without_first_pc.dot(pca_component), pca_component)
     mean_unused_vector_without_first_pc = mat_without_first_pc[known_unused_tokens].mean(axis=0)
 
-
     return DistanceMetrics(
         cosine_distance=cosine_distance(mat, mean_unused_vector),
         cosine_distance_without_first_pc=cosine_distance(mat_without_first_pc, mean_unused_vector_without_first_pc),
@@ -180,6 +179,7 @@ from transformers.utils import cached_file
 from transformers.tokenization_utils_base import TOKENIZER_CONFIG_FILE, FULL_TOKENIZER_FILE
 from transformers.models.auto.tokenization_auto import get_tokenizer_config
 
+
 def escape_token_for_markdown(token, code_tags=True):
     token = repr(token)[1:-1]  # escape \n, unicode, etc
     token = token.replace(" ", "▁")  # make spaces show clearly
@@ -224,6 +224,7 @@ VerificationResult = namedtuple(
     ["bytes", "specials", "candidates", "threshold", "candidates_nosb", "unreachables", "partial_utf8"],
 )
 
+
 def get_verified_candidates(token_infos):
     verification_candidates, verification_cand_threshold = candidates_for_verification(token_infos)
     if not all("max_prob" in c for c in verification_candidates):
@@ -262,12 +263,14 @@ def categorize_token_infos(toka, token_infos):
 
 # -- huggingface token info
 
+
 def get_tokenizer_definition(model_id):
     try:
         with open(cached_file(model_id, FULL_TOKENIZER_FILE), encoding="utf-8") as reader:
             return json.load(reader)
     except Exception:  # does not exist
         return None
+
 
 def get_huggingface_tokenizer_info(model_id, toka, token_infos):
     tokenizer_info: dict[str, str | int] = {"Vocab Size": len(token_infos)}
@@ -310,16 +313,18 @@ def get_huggingface_tokenizer_info(model_id, toka, token_infos):
             tokenizer_info["Dropout"] = dropout
 
     # patch up some blanks which fail the above detection
-    if any(s in model_id for s in ["/gpt2", "/miqu","/neo_7b"]) and "Tokenizer Type" not in tokenizer_info:
+    if any(s in model_id for s in ["/gpt2", "/miqu", "/neo_7b"]) and "Tokenizer Type" not in tokenizer_info:
         tokenizer_info["Tokenizer Type"] = "BPE"
     if any(s in model_id for s in ["/miqu"]) and "Bytes handling" not in tokenizer_info:
-        tokenizer_info["Bytes handling"] = "Byte Fallback"  # just llama2    
+        tokenizer_info["Bytes handling"] = "Byte Fallback"  # just llama2
     if any(s in model_id for s in ["/neo_7b"]) and "Bytes handling" not in tokenizer_info:
-        tokenizer_info["Bytes handling"] = "Byte Input" # according to comments in source
+        tokenizer_info["Bytes handling"] = "Byte Input"  # according to comments in source
 
     return tokenizer_info
 
+
 # --- combined
+
 
 def get_model_and_tokenizer_info(model_id, toka, token_infos):
     """Collects a bunch of info about the model and tokenizer"""

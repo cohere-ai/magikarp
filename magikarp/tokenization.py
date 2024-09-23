@@ -18,6 +18,8 @@ def model_needs_fast_tokenizer(model_id):
         or "pythia" in model_id
         or "neox" in model_id
         or "OLMo" in model_id
+        or "Mistral-Nemo" in model_id
+        or "solar-pro-preview" in model_id
     )
 
 
@@ -44,17 +46,18 @@ class TokenizerAnalyzer:
             clean_up_tokenization_spaces=False,
             trust_remote_code=trust_remote_code,
         )
-        if self.tokenizer.pad_token is None:
+        if getattr(self.tokenizer, "pad_token", None) is None:
+            eos_token_id = getattr(self.tokenizer, "eos_token_id", None)
             print(
-                f"Warning: The tokenizer for {model_id} does not have pad_token_id, setting it to eos_token_id = {self.tokenizer.eos_token_id}"
+                f"Warning: The tokenizer for {model_id} does not have pad_token_id, setting it to eos_token_id = {eos_token_id}"
             )
-            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+            self.tokenizer.pad_token_id = eos_token_id
 
         self.model_id = model_id
         self.vocab_s2i = self.tokenizer.get_vocab()
         self.vocab_i2s = {v: k for k, v in self.vocab_s2i.items()}
 
-        self.special_token_ids = getattr(self.tokenizer, "additional_special_tokens_ids") or []
+        self.special_token_ids = getattr(self.tokenizer, "additional_special_tokens_ids", None) or []
         for attr in [
             "bos_token_id",
             "eos_token_id",
@@ -63,7 +66,7 @@ class TokenizerAnalyzer:
             "sep_token_id",
             "mask_token_id",
         ]:
-            token_id = getattr(self.tokenizer, attr)
+            token_id = getattr(self.tokenizer, attr, None)
             if token_id is not None:
                 self.special_token_ids.append(token_id)
 

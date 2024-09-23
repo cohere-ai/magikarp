@@ -8,14 +8,15 @@ import seaborn as sns
 import tabulate
 
 from magikarp.tokenization import TokenizerAnalyzer
-from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos,escape_token_for_markdown
+from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos, escape_token_for_markdown
 
 
 plt.rcParams["text.usetex"] = True
 
+
 def plot_xylabel(s):
     if "E_{" in s:
-        s= s.replace('E_{', '$E_{\\rm ').replace('}','}$')
+        s = s.replace("E_{", "$E_{\\rm ").replace("}", "}$")
     return s
 
 
@@ -65,7 +66,7 @@ def indicators_pairplot(
     if color_by_id:
         p = sns.color_palette("crest", as_cmap=True)
         nt = undertrained_token_indicators.shape[0]
-        plot_kws["c"] = [p(i / (nt-1)) for i in range(nt)]
+        plot_kws["c"] = [p(i / (nt - 1)) for i in range(nt)]
 
     g = sns.pairplot(
         indicators_df.fillna(0),
@@ -90,8 +91,8 @@ def verification_plot(
     model_id,
     verification_candidates,
     indicator_name,
-    vertical_line_at=None, # for indicating the 2% threshold in the all tokens plot
-    markersize=10, #15,
+    vertical_line_at=None,  # for indicating the 2% threshold in the all tokens plot
+    markersize=10,  # 15,
     aspect_ratio=0.7,
     fig_width=10,
     save=True,
@@ -200,7 +201,7 @@ def make_tokens_table(
         markdown += f"<details><summary>{len(below_thr)-truncate} additional entries below threshold</summary>\n\n{below_thr_table_more}\n</details>\n"
 
     if full and any(ti["main_indicator"] >= threshold for ti in token_infos):
-        above_thr = [token_info_cols(ti) for ti in token_infos if ti["main_indicator"] >= threshold]       
+        above_thr = [token_info_cols(ti) for ti in token_infos if ti["main_indicator"] >= threshold]
         above_thr_table = tabulate.tabulate(above_thr, headers=headers, tablefmt=tablefmt)
         markdown += f"<details><summary>{len(above_thr)} additional entries above threshold</summary>\n\n{above_thr_table}\n</details>"
 
@@ -208,8 +209,6 @@ def make_tokens_table(
 
 
 # --- main report
-
-
 
 
 def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hires=False):
@@ -242,12 +241,18 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             break
         first_below_thr += 1
     else:
-        print("No threshold detected - using last token as threshold.")
         first_below_thr = len(categorized_tokens.candidates_nosb) - 1
-    candidates_threshold = categorized_tokens.candidates_nosb[first_below_thr - 1]["main_indicator"]
-    cand_below_threshold = [
-        c["main_indicator"] for c in categorized_tokens.candidates_nosb if c["max_prob"] < p_verify_threshold
-    ]
+        print(f"No threshold detected - using last token (index {first_below_thr}) as threshold.")
+    if len(categorized_tokens.candidates_nosb) >= 2:
+        candidates_threshold = categorized_tokens.candidates_nosb[first_below_thr - 1]["main_indicator"]
+        cand_below_threshold = [
+            c["main_indicator"] for c in categorized_tokens.candidates_nosb if c["max_prob"] < p_verify_threshold
+        ]
+    else:
+        print("No candidates, setting candidates_threshold=1")
+        candidates_threshold = 1
+        cand_below_threshold = []
+
     if cand_below_threshold:
         verified_median_threshold = float(np.percentile(cand_below_threshold, 50))
     else:
@@ -255,7 +260,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
         verified_median_threshold = 0.0
 
     # make a giant markdown file and write it
-    for full in [False, True]: # short and long versions
+    for full in [False, True]:  # short and long versions
         #  token reports tables for various specific categories
         bytes_report, n_bytes_below_thr = make_tokens_table(
             toka,
@@ -294,26 +299,21 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             threshold=candidates_threshold,
             find_superstrings_in=token_infos.values(),
         )
-        
+
         markdown_report = f"# Report for `{model_id}`\n"
         markdown_report += "\n## Model info\n\n"
         if moda is not None:
             markdown_report += "* Tied embeddings: " + ("yes" if moda.tied_embeddings else "no") + "\n"
             markdown_report += f"* LM head uses bias: " + ("yes" if moda.output_embeddings_has_bias else "no") + "\n"
 
-
         markdown_report += f"* Indicator for under-trained tokens: {indicator_names[indicator_ix]}\n"
         indicator_values_mean = np.mean(undertrained_token_indicators[:, indicator_ix])
         indicator_values_std = np.std(undertrained_token_indicators[:, indicator_ix])
         markdown_report += f"  * Overall distribution {indicator_values_mean:.3f} +/- {indicator_values_std:.3f}\n"
-        markdown_report += (
-            f"  * Token used for verification prompt building: `{toka.vocab_to_readable_string(build_prompt_token['i'])}`\n"
-        )
+        markdown_report += f"  * Token used for verification prompt building: `{toka.vocab_to_readable_string(build_prompt_token['i'])}`\n"
         markdown_report += f"  * Verification threshold: {categorized_tokens.threshold:.3f}\n"
         markdown_report += f"  * Threshold for showing candidate under-trained tokens: {candidates_threshold:.3f}\n"
-        markdown_report += (
-            f"  * Median verified threshold (for bytes, unreachable and special tokens): {verified_median_threshold:.3f}\n"
-        )
+        markdown_report += f"  * Median verified threshold (for bytes, unreachable and special tokens): {verified_median_threshold:.3f}\n"
 
         if moda is not None:
             markdown_report += f"* Embeddings shape: {moda.embeddings.shape}\n"
@@ -342,7 +342,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
         if categorized_tokens.unreachables:
             markdown_report += f"\n## Unreachable tokens\n{unreachable_report}\n"
 
-        with open(output_name(model_id, "reports" if full else "reports_mini" , "md"), "w") as f:
+        with open(output_name(model_id, "reports" if full else "reports_mini", "md"), "w") as f:
             f.write(markdown_report)
 
     return locals()

@@ -32,7 +32,10 @@ for model_id in UNUSED_TOKENS.keys():
     try:
         plt.close()
         toka, moda, token_infos = load_analyzers(
-            model_id, avoid_loading_model=avoid_loading_model, trust_remote_code=trust_remote_code, indicator_ix=indicator_ix
+            model_id,
+            avoid_loading_model=avoid_loading_model,
+            trust_remote_code=trust_remote_code,
+            indicator_ix=indicator_ix,
         )
         make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hires=save_hires)
         if (
@@ -52,7 +55,7 @@ for model_id in UNUSED_TOKENS.keys():
                 token_infos[0]["indicator_names"][indicator_ix],
                 save_dir="paper_plots",
                 save_hires=save_hires,
-                vertical_line_at=threshold_2p
+                vertical_line_at=threshold_2p,
             )
     except Exception as e:
         print(f"❌  Error processing {model_id}: {e}")

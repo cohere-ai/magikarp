@@ -39,6 +39,9 @@ class ModelAnalyzer:
         elif hasattr(self.model, "model") and hasattr(self.model.model, "transformer"):
             lm_head = self.model.model.transformer.ff_out  # OLMo
             self.tied_embeddings = False  # OLMo config uses own convention (weight_tying)
+        elif hasattr(self.model, "output"):
+            lm_head = self.model.output
+            self.tied_embeddings = False
         else:
             raise AttributeError("Could not find the language modelling head in the model")
 
@@ -67,15 +70,11 @@ class ModelAnalyzer:
             output_embedding_distances = embedding_distance_metrics(self.output_embeddings, self.known_unused_tokens)
             self.indicator_names = [
                 self.INDICATOR_EOUT_CD_NAME,
-                self.INDICATOR_EOUT_CENTERED_CD_NAME,
-                self.INDICATOR_EOUT_WO1PC_CD_NAME,
                 self.INDICATOR_EOUT_L2DIST_NAME,
             ]
             self.undertrained_token_indicators = np.stack(
                 [
                     output_embedding_distances.cosine_distance,
-                    output_embedding_distances.cosine_distance_without_mean,
-                    output_embedding_distances.cosine_distance_without_first_pc,
                     output_embedding_distances.l2_distance,
                 ],
                 axis=-1,
@@ -103,7 +102,7 @@ class ModelAnalyzer:
         return {
             "model_info": {
                 "Tied embeddings": self.tied_embeddings,
-                "LM head uses bias": bool(self.output_embeddings_has_bias), # avoid np.bool_
+                "LM head uses bias": bool(self.output_embeddings_has_bias),  # avoid np.bool_
                 "Embeddings shape": list(self.embeddings.shape),
             },
             "indicator_names": self.indicator_names,

@@ -24,6 +24,7 @@ FUGAKU_UNUSED_TOKENS = np.arange(278, 289)  # unused 245-255 fallback
 
 # Defines reference unused tokens for models
 # optional for most models, but also functions as a kind of registry of models to process
+
 UNUSED_TOKENS = {
     ## required: cohere
     "CohereForAI/c4ai-command-r-v01": COHERE_UNUSED_TOKENS,
@@ -58,7 +59,7 @@ UNUSED_TOKENS = {
     "mistralai/Mistral-7B-Instruct-v0.2": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mistral-7B-v0.3": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mixtral-8x7B-v0.1": MISTRAL_UNUSED_TOKENS,
-     "mistralai/Codestral-22B-v0.1": MISTRAL_UNUSED_TOKENS,
+    "mistralai/Codestral-22B-v0.1": MISTRAL_UNUSED_TOKENS,
     "HuggingFaceH4/zephyr-7b-beta": MISTRAL_UNUSED_TOKENS,
     "Rakuten/RakutenAI-7B": MISTRAL_UNUSED_TOKENS,  # extended tokenizer, same unused
     "upstage/SOLAR-10.7B-v1.0": MISTRAL_UNUSED_TOKENS,
@@ -71,7 +72,11 @@ UNUSED_TOKENS = {
     "Qwen/Qwen2-57B-A14B": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
+    "meta-llama/Meta-Llama-3.1-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-70B": TIKTOKEN_UNUSED_TOKENS,
+    "meta-llama/Meta-Llama-3.1-70B": TIKTOKEN_UNUSED_TOKENS,
+    "internlm/internlm2_5-7b-chat": TIKTOKEN_UNUSED_TOKENS,
+    "mistralai/Mistral-Nemo-Base-2407": np.arange(1245, 1256),  # f5-ff
     # deepseek
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
     "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,
@@ -87,4 +92,5 @@ UNUSED_TOKENS = {
     "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
     "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
     "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
+    "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
 }

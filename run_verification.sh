@@ -55,6 +55,7 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "Qwen/Qwen1.5-72B-Chat"
             python magikarp/fishing.py --model_id "stabilityai/stablelm-2-12b" --trust-remote-code # missing weights if not trust remote
             python magikarp/fishing.py --model_id "meta-llama/Meta-Llama-3-8B"
+            python magikarp/fishing.py --model_id "mistralai/Mistral-Nemo-Base-2407" --threshold_ratio 5
             ;;
         "deepseek")
             python magikarp/fishing.py --model_id  "deepseek-ai/deepseek-llm-7b-base"

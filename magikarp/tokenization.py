@@ -29,6 +29,7 @@ class TokenizerAnalyzer:
     FORCE_STARTING_SPACE_MODELS = [
         "01-ai/Yi",
         "ai21labs/Jamba-v0.1",
+        "ai21labs/AI21-Jamba-1.5-Mini",
     ]  # does not add, but still removes?
 
     def __init__(

@@ -65,7 +65,7 @@ UNUSED_TOKENS = {
     "HuggingFaceH4/zephyr-7b-beta": MISTRAL_UNUSED_TOKENS,
     "Rakuten/RakutenAI-7B": MISTRAL_UNUSED_TOKENS,  # extended tokenizer, same unused
     "upstage/SOLAR-10.7B-v1.0": MISTRAL_UNUSED_TOKENS,
-    "upstage/solar-pro-preview-instruct": np.arange(248,259),
+    "upstage/solar-pro-preview-instruct": np.arange(248, 259),
     "h2oai/h2o-danube2-1.8b-base": MISTRAL_UNUSED_TOKENS,
     "Nexusflow/Starling-LM-7B-beta": MISTRAL_UNUSED_TOKENS,
     # tiktoken

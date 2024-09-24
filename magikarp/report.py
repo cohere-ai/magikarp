@@ -8,9 +8,16 @@ import seaborn as sns
 import tabulate
 
 from magikarp.tokenization import TokenizerAnalyzer
-from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos, escape_token_for_markdown, get_model_and_tokenizer_info, dict_to_markdown_list
+from magikarp.utils import (
+    output_name,
+    select_placeholder_token,
+    categorize_token_infos,
+    escape_token_for_markdown,
+    get_model_and_tokenizer_info,
+    dict_to_markdown_list,
+)
 
-VERIFICATION_THRESHOLD=0.01
+VERIFICATION_THRESHOLD = 0.01
 plt.rcParams["text.usetex"] = True
 
 
@@ -299,8 +306,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             full=full,
             threshold=candidates_threshold,
             find_superstrings_in=token_infos.values(),
-            )
-
+        )
 
         info["Indicator summary"] = {
             "Indicator for under-trained tokens": indicator_names[indicator_ix],
@@ -309,13 +315,16 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
         info["Detected Token Counts"] = {
             "Number of tested under-trained tokens": f"{len(categorized_tokens.candidates)}, {len(categorized_tokens.candidates_nosb)} non-special, {sum(verifications_below_threshold)} below p = {p_verify_threshold} threshold, {n_magikarps_below_thr} below soft indicator threshold",
             "Number of single byte tokens": f"{len(categorized_tokens.bytes)}, of which {n_bytes_below_thr} below indicator threshold",
-            "Number of special tokens": f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold"
+            "Number of special tokens": f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold",
         }
         if categorized_tokens.unreachables:
-            info["Detected Token Counts"]["Number of non-single-byte unreachable tokens"] =f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold"
+            info["Detected Token Counts"][
+                "Number of non-single-byte unreachable tokens"
+            ] = f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold"
         if categorized_tokens.partial_utf8:
-            info["Detected Token Counts"]["Number of non-single-byte UTF-fragment tokens"] = f" {len(categorized_tokens.partial_utf8)}, of which {n_partial_utf8_below_thr} below soft indicator threshold"
-
+            info["Detected Token Counts"][
+                "Number of non-single-byte UTF-fragment tokens"
+            ] = f" {len(categorized_tokens.partial_utf8)}, of which {n_partial_utf8_below_thr} below soft indicator threshold"
 
         markdown_report = f"# Report for `{model_id}`\n"
         markdown_report += "\n## Model info\n\n"

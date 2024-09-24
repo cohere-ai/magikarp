@@ -131,7 +131,9 @@ def format_ranges(ixs: list[int]) -> str:
 DEFAULT_THRESHOLD_PERCENTILE = 2.0
 
 
-def candidates_for_verification(token_infos, threshold_ratio: Union[float, None] = DEFAULT_THRESHOLD_PERCENTILE, threshold=None):
+def candidates_for_verification(
+    token_infos, threshold_ratio: Union[float, None] = DEFAULT_THRESHOLD_PERCENTILE, threshold=None
+):
     if threshold is None:
         threshold = np.percentile(
             [tc["main_indicator"] for tc in token_infos.values() if tc["category"] == "OK"],
@@ -313,7 +315,10 @@ def get_huggingface_tokenizer_info(model_id, toka, token_infos):
             tokenizer_info["Dropout"] = dropout
 
     # patch up some blanks which fail the above detection
-    if any(s in model_id for s in ["/gpt2", "/miqu", "/neo_7b",'/Skywork','/Yi-Coder','/internlm']) and "Tokenizer Type" not in tokenizer_info:
+    if (
+        any(s in model_id for s in ["/gpt2", "/miqu", "/neo_7b", "/Skywork", "/Yi-Coder", "/internlm"])
+        and "Tokenizer Type" not in tokenizer_info
+    ):
         tokenizer_info["Tokenizer Type"] = "BPE"
     if any(s in model_id for s in ["/miqu"]) and "Bytes handling" not in tokenizer_info:
         tokenizer_info["Bytes handling"] = "Byte Fallback"  # just llama2
@@ -344,7 +349,7 @@ def dict_to_markdown_list(d, indent=0, bold=False):
     """Converts a dictionary to a nested Markdown list."""
     markdown = ""
     for key, value in d.items():
-        fmt = '**' if bold else ''
+        fmt = "**" if bold else ""
         markdown += "  " * indent + f"* {fmt}{key}{fmt}: "
         if isinstance(value, dict):
             markdown += "\n" + dict_to_markdown_list(value, indent + 1, bold)

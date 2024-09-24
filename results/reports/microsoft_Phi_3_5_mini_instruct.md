@@ -2,19 +2,24 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 2.042 +/- 0.379
-  * Token used for verification prompt building: `springframework`
-  * Verification threshold: 0.834
-  * Threshold for showing candidate under-trained tokens: 0.191
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.158
-* Embeddings shape: (32064, 3072)
-* Vocabulary size: 32011
-  * Number of single byte tokens: 351, of which 110 below indicator threshold
-  * Number of special tokens: 14, of which 3 below indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [32064, 3072]
+* Tokenizer Info: 
+  * Vocab Size: 32011
+  * Tokenizer Class: LlamaTokenizer
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Fallback
+  * Token for verification prompt building: springframework
+  * Token id for verification prompt building: 6688
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 2.042 +/- 0.379
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 636, 633 non-special, 87 below p = 0.01 threshold, 53 below soft indicator threshold
+  * Number of single byte tokens: 351, of which 110 below indicator threshold
+  * Number of special tokens: 0, of which 0 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/microsoft_Phi_3_5_mini_instruct.png)

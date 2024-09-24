@@ -2,20 +2,25 @@
 
 ## Model info
 
-* Tied embeddings: yes
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{out} Cosine Distance
-  * Overall distribution 0.074 +/- 0.034
-  * Token used for verification prompt building: `TouchableOpacity`
-  * Verification threshold: 0.015
-  * Threshold for showing candidate under-trained tokens: 0.001
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.001
-* Embeddings shape: (256000, 3072)
-* Vocabulary size: 256000
-  * Number of single byte tokens: 380, of which 144 below indicator threshold
-  * Number of special tokens: 158, of which 106 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 1, of which 1 below indicator threshold
+* Model Info: 
+  * Tied embeddings: True
+  * LM head uses bias: False
+  * Embeddings shape: [256000, 3072]
+* Tokenizer Info: 
+  * Vocab Size: 256000
+  * Tokenizer Class: GemmaTokenizer
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Fallback
+  * Token for verification prompt building: TouchableOpacity
+  * Token id for verification prompt building: 39886
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{out} Cosine Distance
+  * Overall distribution: 0.074 +/- 0.034
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 5119, 5013 non-special, 694 below p = 0.01 threshold, 353 below soft indicator threshold
+  * Number of single byte tokens: 380, of which 144 below indicator threshold
+  * Number of special tokens: 1, of which 1 below indicator threshold
+  * Number of non-single-byte unreachable tokens: 1, of which 1 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/google_gemma_7b.png)
@@ -5561,7 +5566,7 @@
 |         65 | ````` <unused58> `````      | 1.09673e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00044</span> |
 |          5 | ````` <2mass> `````         | 1.13249e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00043</span> |
 |         41 | ````` <unused34> `````      | 1.40667e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00041</span> |
-|     255999 | ````` <unused99> `````      | 1.52588e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00048</span> |
+|     255999 | ````` <unused99> `````      | 1.51992e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00048</span> |
 |          7 | ````` <unused0> `````       | 6.16908e-05 | <span style='border: 1px solid rgb(169, 68, 66);'>0.0005</span>  |
 </details>
 <details><summary>52 additional entries above threshold</summary>

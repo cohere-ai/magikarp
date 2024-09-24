@@ -2,19 +2,24 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 1.806 +/- 0.288
-  * Token used for verification prompt building: `includegraphics`
-  * Verification threshold: 0.835
-  * Threshold for showing candidate under-trained tokens: 0.259
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.207
-* Embeddings shape: (32128, 5120)
-* Vocabulary size: 32128
-  * Number of single byte tokens: 351, of which 110 below indicator threshold
-  * Number of special tokens: 131, of which 11 below indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [32128, 5120]
+* Tokenizer Info: 
+  * Vocab Size: 32128
+  * Tokenizer Class: LlamaTokenizer
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Fallback
+  * Token for verification prompt building: springframework
+  * Token id for verification prompt building: 6688
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 1.806 +/- 0.288
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 639, 605 non-special, 127 below p = 0.01 threshold, 86 below soft indicator threshold
+  * Number of single byte tokens: 351, of which 110 below indicator threshold
+  * Number of special tokens: 0, of which 0 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/upstage_solar_pro_preview_instruct.png)
@@ -116,7 +121,7 @@
 |      27191 | ````` ▁szeptember `````    |   0.253619  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0053</span>  |                                                                                                                                                                                                                                                     |
 |      22945 | ````` ▁január `````        |   0.255233  | <span style='border: 1px solid rgb(40, 167, 69);'>0.49</span>    |                                                                                                                                                                                                                                                     |
 |      17828 | ````` ▁држави `````        |   0.256497  | <span style='border: 1px solid rgb(169, 68, 66);'>5e-05</span>   |                                                                                                                                                                                                                                                     |
-|       3798 | ````` oreferrer `````      |   0.258028  | <span style='border: 1px solid rgb(251, 189, 8);'>0.036</span>   | ````` ▁noreferrer `````, ````` noreferrer `````                                                                                                                                                                                                     |
+|       3798 | ````` oreferrer `````      |   0.258028  | <span style='border: 1px solid rgb(251, 189, 8);'>0.036</span>   | ````` noreferrer `````, ````` ▁noreferrer `````                                                                                                                                                                                                     |
 </details>
 
 
@@ -247,11 +252,11 @@
 
 |   token_id | token                           |   indicator | max_prob                                                         |
 |------------|---------------------------------|-------------|------------------------------------------------------------------|
-|      32015 | ````` <\|placeholder11\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
-|      32014 | ````` <\|placeholder10\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32011 | ````` <\|placeholder7\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
-|      32012 | ````` <\|placeholder8\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
+|      32015 | ````` <\|placeholder11\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32013 | ````` <\|placeholder9\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
+|      32012 | ````` <\|placeholder8\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
+|      32014 | ````` <\|placeholder10\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32002 | ````` <\|placeholder1\|> `````  |  0.00518204 | <span style='border: 1px solid rgb(169, 68, 66);'>4e-06</span>   |
 |      32004 | ````` <\|placeholder3\|> `````  |  0.00563358 | <span style='border: 1px solid rgb(169, 68, 66);'>5.8e-06</span> |
 |      32008 | ````` <\|placeholder5\|> `````  |  0.00710075 | <span style='border: 1px solid rgb(169, 68, 66);'>9.4e-06</span> |

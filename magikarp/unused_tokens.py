@@ -48,12 +48,14 @@ UNUSED_TOKENS = {
     "meta-llama/Llama-2-70b-hf": LLAMA2_UNUSED_TOKENS,
     "152334H/miqu-1-70b-sf": LLAMA2_UNUSED_TOKENS,
     "microsoft/Phi-3-mini-128k-instruct": LLAMA2_UNUSED_TOKENS,
+    "microsoft/Phi-3.5-mini-instruct": LLAMA2_UNUSED_TOKENS,
     "Skywork/Skywork-13B-base": LLAMA2_UNUSED_TOKENS,
     # neox and variants
     "EleutherAI/pythia-6.9b": NEOX_UNUSED_TOKENS,
     "EleutherAI/gpt-neox-20b": NEOX_UNUSED_TOKENS,
     "allenai/OLMo-7B-hf": OLMO_UNUSED_TOKENS,  # required since we use secondary metric
     "allenai/OLMo-1.7-7B-hf": OLMO_UNUSED_TOKENS,  # required since we use secondary metric
+    "allenai/OLMoE-1B-7B-0924": OLMO_UNUSED_TOKENS,
     # mistral variants
     "mistralai/Mistral-7B-v0.1": MISTRAL_UNUSED_TOKENS,
     "mistralai/Mistral-7B-Instruct-v0.2": MISTRAL_UNUSED_TOKENS,
@@ -63,6 +65,7 @@ UNUSED_TOKENS = {
     "HuggingFaceH4/zephyr-7b-beta": MISTRAL_UNUSED_TOKENS,
     "Rakuten/RakutenAI-7B": MISTRAL_UNUSED_TOKENS,  # extended tokenizer, same unused
     "upstage/SOLAR-10.7B-v1.0": MISTRAL_UNUSED_TOKENS,
+    "upstage/solar-pro-preview-instruct": np.arange(248,259),
     "h2oai/h2o-danube2-1.8b-base": MISTRAL_UNUSED_TOKENS,
     "Nexusflow/Starling-LM-7B-beta": MISTRAL_UNUSED_TOKENS,
     # tiktoken
@@ -70,6 +73,7 @@ UNUSED_TOKENS = {
     "Qwen/Qwen1.5-72B-Chat": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen1.5-32B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen2-57B-A14B": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen2.5-32B-Instruct": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3.1-8B": TIKTOKEN_UNUSED_TOKENS,
@@ -81,16 +85,19 @@ UNUSED_TOKENS = {
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
     "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,
     "deepseek-ai/deepseek-math-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
+    "deepseek-ai/DeepSeek-V2-Lite": DEEPSEEK_LANG_UNUSED_TOKENS,
     "chuxin-llm/Chuxin-1.6B-Base": DEEPSEEK_LANG_UNUSED_TOKENS,
     # yi
     "01-ai/Yi-9B": YI_UNUSED_TOKENS,
     "01-ai/Yi-1.5-9B": YI_UNUSED_TOKENS,
+    "01-ai/Yi-Coder-9B-Chat": YI_UNUSED_TOKENS,
     # unigram
     "Fugaku-LLM/Fugaku-LLM-13B": FUGAKU_UNUSED_TOKENS,
     "facebook/xglm-7.5B": np.arange(256001, 256008),  # <madeupword>
     # others
     "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
     "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
+    "ai21labs/AI21-Jamba-1.5-Mini": JAMBA_UNUSED_TOKENS,
     "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
     "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
 }

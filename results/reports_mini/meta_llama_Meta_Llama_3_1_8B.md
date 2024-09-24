@@ -2,20 +2,25 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 0.674 +/- 0.084
-  * Token used for verification prompt building: `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
-  * Verification threshold: 0.468
-  * Threshold for showing candidate under-trained tokens: 0.074
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.048
-* Embeddings shape: (128256, 4096)
-* Vocabulary size: 128256
-  * Number of single byte tokens: 256, of which 13 below indicator threshold
-  * Number of special tokens: 256, of which 254 below indicator threshold
-  * Number of non-single-byte UTF-fragment tokens: 1224, 4 below soft indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [128256, 4096]
+* Tokenizer Info: 
+  * Vocab Size: 128256
+  * Tokenizer Class: PreTrainedTokenizerFast
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Input
+  * Token for verification prompt building: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  * Token id for verification prompt building: 77002
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 0.674 +/- 0.084
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 2540, 2225 non-special, 280 below p = 0.01 threshold, 195 below soft indicator threshold
+  * Number of single byte tokens: 256, of which 13 below indicator threshold
+  * Number of special tokens: 0, of which 0 below indicator threshold
+  * Number of non-single-byte UTF-fragment tokens:  1224, of which 4 below soft indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/meta_llama_Meta_Llama_3_1_8B.png)
@@ -31,11 +36,11 @@
 |      85071 | ````` $PostalCodesNL `````        | 2.01135e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
 |     107658 | ````` итися `````                 | 2.03318e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
 |     127896 | ````` ıldığında `````             | 2.04178e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
-|     103003 | ````` аракт `````                 | 2.04247e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(251, 189, 8);'>````` ▁характ `````</span>, ````` ▁характеристики `````, ````` ▁характер `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁характериз `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁характеристи `````</span> |
+|     103003 | ````` аракт `````                 | 2.04247e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(251, 189, 8);'>````` ▁характ `````</span>, ````` ▁характер `````, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁характеристи `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁характериз `````</span>, ````` ▁характеристики ````` |
 |     126523 | ````` ЎыџN `````                  | 2.04487e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџNЎыџN `````</span>                                                                                                                                                                                                                          |
-|      80369 | ````` ▁ForCanBeConverted `````    | 2.04658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁ForCanBeConvertedToF `````</span>, <span style='border: 1px solid rgb(251, 189, 8);'>````` ▁ForCanBeConvertedToForeach `````</span>                                                                                                           |
+|      80369 | ````` ▁ForCanBeConverted `````    | 2.04658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(251, 189, 8);'>````` ▁ForCanBeConvertedToForeach `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁ForCanBeConvertedToF `````</span>                                                                                                           |
 |      79883 | ````` \tTokenNameIdentifier ````` | 2.04966e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
-|     106710 | ````` атися `````                 | 2.05e-21    | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ватися `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` уватися `````</span>                                                                                                                                              |
+|     106710 | ````` атися `````                 | 2.05e-21    | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` уватися `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ватися `````</span>                                                                                                                                              |
 |      68896 | ````` ;\r\r\r\n `````             | 2.05682e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` );\r\r\r\n `````</span>                                                                                                                                                                                                                        |
 |     118508 | ````` ávající `````               | 2.06227e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
 |      89472 | ````` useRalative `````           | 2.07345e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` useRalativeImagePath `````</span>                                                                                                                                                                                                              |
@@ -47,14 +52,14 @@
 |      64424 | ````` ">\r\r\n `````              | 2.0963e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                                                                                        |
 |      85069 | ````` PostalCodesNL `````         | 2.09697e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` $PostalCodesNL `````</span>                                                                                                                                                                                                                    |
 |      80370 | ````` ▁ForCanBeConvertedToF ````` | 2.09764e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(251, 189, 8);'>````` ▁ForCanBeConvertedToForeach `````</span>                                                                                                                                                                                                       |
-|     125952 | ````` ыџN `````                   | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџNЎыџN `````</span>                                                                                                                                               |
+|     125952 | ````` ыџN `````                   | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџNЎыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџN `````</span>                                                                                                                                               |
 <details><summary>175 additional entries below threshold</summary>
 
 |   token_id | token                                        |   indicator | max_prob                                                         | in_other_tokens                                                                                                                                                                                                                    |
 |------------|----------------------------------------------|-------------|------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |     126545 | ````` ılmaktadır `````                       | 2.11162e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |                                                                                                                                                                                                                                    |
 |     118260 | ````` ávací `````                            | 0.0013641   | <span style='border: 1px solid rgb(169, 68, 66);'>2.3e-06</span> |                                                                                                                                                                                                                                    |
-|     110043 | ````` еристи `````                           | 0.00248347  | <span style='border: 1px solid rgb(169, 68, 66);'>3.6e-05</span> | ````` ▁характеристики `````, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁характеристи `````</span>                                                                                                                    |
+|     110043 | ````` еристи `````                           | 0.00248347  | <span style='border: 1px solid rgb(169, 68, 66);'>3.6e-05</span> | <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁характеристи `````</span>, ````` ▁характеристики `````                                                                                                                    |
 |     108577 | ````` ilmektedir `````                       | 0.00373006  | <span style='border: 1px solid rgb(169, 68, 66);'>7.2e-05</span> |                                                                                                                                                                                                                                    |
 |     111067 | ````` ıldığı `````                           | 0.00412937  | <span style='border: 1px solid rgb(169, 68, 66);'>8.2e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ıldığında `````</span>                                                                                                                                                     |
 |     112162 | ````` уватися `````                          | 0.00473479  | <span style='border: 1px solid rgb(169, 68, 66);'>3.5e-05</span> |                                                                                                                                                                                                                                    |
@@ -83,14 +88,14 @@
 |     113234 | ````` uştur `````                            | 0.0127888   | <span style='border: 1px solid rgb(169, 68, 66);'>4.2e-05</span> | ````` ▁olmuştur `````                                                                                                                                                                                                              |
 |     127438 | ````` ▍▍▍▍▍▍▍▍▍▍▍▍▍▍▍▍ `````                 | 0.0130786   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00019</span> |                                                                                                                                                                                                                                    |
 |     124393 | ````` sahuje `````                           | 0.0140311   | <span style='border: 1px solid rgb(169, 68, 66);'>4.7e-05</span> |                                                                                                                                                                                                                                    |
-|     102564 | ````` ıldı `````                             | 0.0147296   | <span style='border: 1px solid rgb(169, 68, 66);'>3e-08</span>   | ````` ▁yapıldı `````, ````` ▁yıldır `````, ````` ▁yıldız `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ıldığı `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ıldığında `````</span>        |
+|     102564 | ````` ıldı `````                             | 0.0147296   | <span style='border: 1px solid rgb(169, 68, 66);'>3e-08</span>   | ````` ▁yıldır `````, ````` ▁yapıldı `````, ````` ▁yıldız `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ıldığı `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ıldığında `````</span>        |
 |     126173 | ````` vající `````                           | 0.0147791   | <span style='border: 1px solid rgb(169, 68, 66);'>0.0001</span>  |                                                                                                                                                                                                                                    |
 |     106951 | ````` 글상위 `````                           | 0.0148757   | <span style='border: 1px solid rgb(169, 68, 66);'>4.2e-05</span> | <span style='border: 1px solid rgb(40, 167, 69);'>````` 구글상위 `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁구글상위 `````</span>                                                                      |
 |     120702 | ````` ▁характериз `````                      | 0.0149459   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00013</span> |                                                                                                                                                                                                                                    |
 |     112692 | ````` ▍▍▍▍▍▍▍▍ `````                         | 0.0151985   | <span style='border: 1px solid rgb(169, 68, 66);'>0.0002</span>  | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▍▍▍▍▍▍▍▍▍▍▍▍▍▍▍▍ `````</span>                                                                                                                                              |
 |     113004 | ````` ▁виріш `````                           | 0.0158016   | <span style='border: 1px solid rgb(169, 68, 66);'>6e-05</span>   |                                                                                                                                                                                                                                    |
 |     114836 | ````` ーション `````                         | 0.0170967   | <span style='border: 1px solid rgb(169, 68, 66);'>6.3e-05</span> |                                                                                                                                                                                                                                    |
-|     101673 | ````` ektedir `````                          | 0.0176904   | <span style='border: 1px solid rgb(169, 68, 66);'>6.2e-05</span> | ````` ▁etmektedir `````, <span style='border: 1px solid rgb(251, 189, 8);'>````` mektedir `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ilmektedir `````</span>, ````` ▁gerekmektedir `````                |
+|     101673 | ````` ektedir `````                          | 0.0176904   | <span style='border: 1px solid rgb(169, 68, 66);'>6.2e-05</span> | ````` ▁gerekmektedir `````, ````` ▁etmektedir `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ilmektedir `````</span>, <span style='border: 1px solid rgb(251, 189, 8);'>````` mektedir `````</span>                |
 |      89473 | ````` useRalativeImagePath `````             | 0.0177913   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                                                                                                                                                                                    |
 |      64448 | ````` ?>\r\n\r\n `````                       | 0.0178007   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00011</span> |                                                                                                                                                                                                                                    |
 |      89471 | ````` useRal `````                           | 0.0178468   | <span style='border: 1px solid rgb(169, 68, 66);'>6e-05</span>   | <span style='border: 1px solid rgb(169, 68, 66);'>````` useRalativeImagePath `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` useRalative `````</span>                                                        |
@@ -101,7 +106,7 @@
 |     115105 | ````` ▁神马收录 `````                        | 0.0194804   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00011</span> |                                                                                                                                                                                                                                    |
 |     114860 | ````` ılmıştır `````                         | 0.0198141   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> |                                                                                                                                                                                                                                    |
 |      96348 | ````` ',\r\r\n `````                         | 0.0198737   | <span style='border: 1px solid rgb(169, 68, 66);'>7.7e-05</span> |                                                                                                                                                                                                                                    |
-|     106216 | ````` ıntı `````                             | 0.0204795   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> | <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁ayrıntı `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁sıkıntı `````</span>, ````` ▁ayrıntılı `````                                               |
+|     106216 | ````` ıntı `````                             | 0.0204795   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> | <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁sıkıntı `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁ayrıntı `````</span>, ````` ▁ayrıntılı `````                                               |
 |     112907 | ````` uyordu `````                           | 0.0206446   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                                                                                                                                                                                    |
 |     115970 | ````` üyordu `````                           | 0.0214617   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00013</span> |                                                                                                                                                                                                                                    |
 |      81259 | ````` artisanlib `````                       | 0.0216272   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                                                                                                                                                                                    |
@@ -137,7 +142,7 @@
 |     115108 | ````` ▁百度流量 `````                        | 0.0357155   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00019</span> |                                                                                                                                                                                                                                    |
 |     107197 | ````` ▁використов `````                      | 0.0359755   | <span style='border: 1px solid rgb(169, 68, 66);'>7e-05</span>   | ````` ▁використовувати `````                                                                                                                                                                                                       |
 |     127531 | ````` ▁vyrá `````                            | 0.0361595   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                                                                                                                                                                                    |
-|     125022 | ````` џN `````                               | 0.0372256   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00059</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџNЎыџN `````</span> |
+|     125022 | ````` џN `````                               | 0.0372256   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00059</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџNЎыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ЎыџN `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` ыџN `````</span> |
 |     126257 | ````` џЭ `````                               | 0.0376608   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00016</span> |                                                                                                                                                                                                                                    |
 |     122315 | ````` müştür `````                           | 0.0385269   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0014</span>  |                                                                                                                                                                                                                                    |
 |     117929 | ````` ▁вихов `````                           | 0.0390261   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00011</span> |                                                                                                                                                                                                                                    |
@@ -188,7 +193,7 @@
 |     110410 | ````` ▁seviy `````                           | 0.0563497   | <span style='border: 1px solid rgb(169, 68, 66);'>0.0002</span>  |                                                                                                                                                                                                                                    |
 |      51574 | ````` ▁{\r\r\n `````                         | 0.0567168   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0088</span>  |                                                                                                                                                                                                                                    |
 |     119776 | ````` ▁yaptığ `````                          | 0.0571249   | <span style='border: 1px solid rgb(169, 68, 66);'>9.6e-05</span> |                                                                                                                                                                                                                                    |
-|     120592 | ````` тися `````                             | 0.0576069   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0015</span>  | ````` ▁тисяч `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ватися `````</span>                                                                                                                                    |
+|     120592 | ````` тися `````                             | 0.0576069   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0015</span>  | <span style='border: 1px solid rgb(169, 68, 66);'>````` ватися `````</span>, ````` ▁тисяч `````                                                                                                                                    |
 |     108457 | ````` lardı `````                            | 0.0578091   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0011</span>  | ````` lardır `````                                                                                                                                                                                                                 |
 |     100509 | ````` џџџџџџџџџџџџџџџџ `````                 | 0.0578878   | <span style='border: 1px solid rgb(251, 189, 8);'>0.079</span>   | <span style='border: 1px solid rgb(40, 167, 69);'>````` џџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџ `````</span>                                                                                                                              |
 |      70784 | ````` Japgolly `````                         | 0.0580453   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00027</span> | <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁typingsJapgolly `````</span>                                                                                                                                              |
@@ -196,16 +201,16 @@
 |     108980 | ````` ▁smlou `````                           | 0.0596319   | <span style='border: 1px solid rgb(251, 189, 8);'>0.032</span>   | ````` ▁smlouvy `````                                                                                                                                                                                                               |
 |      66534 | ````` '];\r\n\r\n `````                      | 0.0596985   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                                                                                                                                                                                    |
 |     112206 | ````` ▁otevř `````                           | 0.0612411   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00026</span> |                                                                                                                                                                                                                                    |
-|     105672 | ````` ▁розвит `````                          | 0.0618254   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00016</span> | ````` ▁розвиток `````, ````` ▁розвитку `````                                                                                                                                                                                       |
+|     105672 | ````` ▁розвит `````                          | 0.0618254   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00016</span> | ````` ▁розвитку `````, ````` ▁розвиток `````                                                                                                                                                                                       |
 |      38335 | ````` ">\r\n\r\n `````                       | 0.0630779   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00039</span> |                                                                                                                                                                                                                                    |
-|     107996 | ````` ▁визнач `````                          | 0.0634542   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00019</span> | ````` ▁визначення `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁визнача `````</span>                                                                                                                             |
+|     107996 | ````` ▁визнач `````                          | 0.0634542   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00019</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁визнача `````</span>, ````` ▁визначення `````                                                                                                                             |
 |     119003 | ````` ▁taşıy `````                           | 0.0637262   | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-05</span> |                                                                                                                                                                                                                                    |
 |     113050 | ````` muştur `````                           | 0.0644368   | <span style='border: 1px solid rgb(251, 189, 8);'>0.022</span>   | ````` ▁olmuştur `````                                                                                                                                                                                                              |
 |     101056 | ````` џџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџ ````` | 0.064529    | <span style='border: 1px solid rgb(40, 167, 69);'>0.93</span>    |                                                                                                                                                                                                                                    |
 |      44001 | ````` _AdjustorThunk `````                   | 0.0646651   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00085</span> |                                                                                                                                                                                                                                    |
 |     100323 | ````` џџџџџџџџ `````                         | 0.0647544   | <span style='border: 1px solid rgb(40, 167, 69);'>0.22</span>    | <span style='border: 1px solid rgb(251, 189, 8);'>````` џџџџџџџџџџџџџџџџ `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` џџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџџ `````</span>                                       |
 |     113720 | ````` ▁açıklam `````                         | 0.0647729   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00019</span> |                                                                                                                                                                                                                                    |
-|     117949 | ````` eştir `````                            | 0.0648449   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0071</span>  | ````` ▁yerleştir `````, ````` ▁eleştir `````                                                                                                                                                                                       |
+|     117949 | ````` eştir `````                            | 0.0648449   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0071</span>  | ````` ▁eleştir `````, ````` ▁yerleştir `````                                                                                                                                                                                       |
 |     124114 | ````` ▁заним `````                           | 0.0653323   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00043</span> |                                                                                                                                                                                                                                    |
 |     110525 | ````` ▁vzděl `````                           | 0.0658628   | <span style='border: 1px solid rgb(251, 189, 8);'>0.039</span>   | <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁vzdělávání `````</span>                                                                                                                                                   |
 |      45222 | ````` ;\r\r\n `````                          | 0.0666327   | <span style='border: 1px solid rgb(251, 189, 8);'>0.041</span>   | <span style='border: 1px solid rgb(169, 68, 66);'>````` ();\r\r\n `````</span>, <span style='border: 1px solid rgb(255, 145, 0);'>````` );\r\r\n `````</span>                                                                      |
@@ -213,7 +218,7 @@
 |     125759 | ````` ▁відріз `````                          | 0.0671306   | <span style='border: 1px solid rgb(169, 68, 66);'>0.0004</span>  |                                                                                                                                                                                                                                    |
 |     126169 | ````` ařilo `````                            | 0.0682766   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00042</span> | ````` ▁podařilo `````                                                                                                                                                                                                              |
 |     118751 | ````` ▁дозволя `````                         | 0.0682952   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00028</span> |                                                                                                                                                                                                                                    |
-|     103754 | ````` ▁використ `````                        | 0.068979    | <span style='border: 1px solid rgb(169, 68, 66);'>0.00087</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁використов `````</span>, ````` ▁використання `````, ````` ▁використовувати `````                                                                                          |
+|     103754 | ````` ▁використ `````                        | 0.068979    | <span style='border: 1px solid rgb(169, 68, 66);'>0.00087</span> | ````` ▁використовувати `````, <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁використов `````</span>, ````` ▁використання `````                                                                                          |
 |     127865 | ````` ▁ослож `````                           | 0.0690937   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00035</span> |                                                                                                                                                                                                                                    |
 |     123563 | ````` ▁zvyš `````                            | 0.0694957   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0026</span>  |                                                                                                                                                                                                                                    |
 |      87474 | ````` 無しさん `````                         | 0.0704623   | <span style='border: 1px solid rgb(40, 167, 69);'>0.1</span>     | <span style='border: 1px solid rgb(40, 167, 69);'>````` 名無しさん `````</span>, <span style='border: 1px solid rgb(40, 167, 69);'>````` ▁名無しさん `````</span>                                                                  |
@@ -235,7 +240,7 @@
 
 |   token_id | token                      |   indicator | in_other_tokens                                                                       |
 |------------|----------------------------|-------------|---------------------------------------------------------------------------------------|
-|     100617 | ````` ۱<0xDB> `````        | 2.10164e-21 | ````` ۱۴ `````, ````` ۱۲ `````, ````` ۱۳ `````, ````` ۱۹۶ `````, ````` ۱۹۴ `````, ... |
+|     100617 | ````` ۱<0xDB> `````        | 2.10164e-21 | ````` ۱۳ `````, ````` ۱۷ `````, ````` ۱۹ `````, ````` ۱۹۷ `````, ````` ۱۹۵ `````, ... |
 |      28587 | ````` <0x8E><0xB7>取 ````` | 0.00425785  | ````` 获取 `````, ````` ▁获取 `````                                                   |
 |      52188 | ````` <0x9D>始化 `````     | 0.00692322  | ````` ▁初始化 `````, ````` 初始化 `````                                               |
 |      36225 | ````` <0xB7><0xBB>加 ````` | 0.0657314   | ````` 添加 `````, ````` ▁添加 `````                                                   |
@@ -283,8 +288,8 @@
 |     128225 | ````` <\|reserved_special_token_217\|> ````` | 2.03042e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128247 | ````` <\|reserved_special_token_239\|> ````` | 2.03215e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128019 | ````` <\|reserved_special_token_11\|> `````  | 2.03249e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128213 | ````` <\|reserved_special_token_205\|> ````` | 2.03422e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128161 | ````` <\|reserved_special_token_153\|> ````` | 2.03422e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128213 | ````` <\|reserved_special_token_205\|> ````` | 2.03422e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128137 | ````` <\|reserved_special_token_129\|> ````` | 2.0349e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 <details><summary>234 additional entries below threshold</summary>
 
@@ -294,11 +299,11 @@
 |     128058 | ````` <\|reserved_special_token_50\|> `````  | 2.04006e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128178 | ````` <\|reserved_special_token_170\|> ````` | 2.04041e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128190 | ````` <\|reserved_special_token_182\|> ````` | 2.04109e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128154 | ````` <\|reserved_special_token_146\|> ````` | 2.04144e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128244 | ````` <\|reserved_special_token_236\|> ````` | 2.04144e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128154 | ````` <\|reserved_special_token_146\|> ````` | 2.04144e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128027 | ````` <\|reserved_special_token_19\|> `````  | 2.04178e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128047 | ````` <\|reserved_special_token_39\|> `````  | 2.04247e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128044 | ````` <\|reserved_special_token_36\|> `````  | 2.04247e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128047 | ````` <\|reserved_special_token_39\|> `````  | 2.04247e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128231 | ````` <\|reserved_special_token_223\|> ````` | 2.04281e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128194 | ````` <\|reserved_special_token_186\|> ````` | 2.04418e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128168 | ````` <\|reserved_special_token_160\|> ````` | 2.04521e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -312,16 +317,16 @@
 |     128164 | ````` <\|reserved_special_token_156\|> ````` | 2.04966e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128075 | ````` <\|reserved_special_token_67\|> `````  | 2.05034e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128193 | ````` <\|reserved_special_token_185\|> ````` | 2.05034e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128087 | ````` <\|reserved_special_token_79\|> `````  | 2.05102e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128018 | ````` <\|reserved_special_token_10\|> `````  | 2.05102e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128105 | ````` <\|reserved_special_token_97\|> `````  | 2.05102e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128087 | ````` <\|reserved_special_token_79\|> `````  | 2.05102e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128238 | ````` <\|reserved_special_token_230\|> ````` | 2.05137e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128127 | ````` <\|reserved_special_token_119\|> ````` | 2.05171e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128166 | ````` <\|reserved_special_token_158\|> ````` | 2.05171e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128117 | ````` <\|reserved_special_token_109\|> ````` | 2.05205e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128127 | ````` <\|reserved_special_token_119\|> ````` | 2.05171e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128043 | ````` <\|reserved_special_token_35\|> `````  | 2.05205e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128211 | ````` <\|reserved_special_token_203\|> ````` | 2.05239e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128117 | ````` <\|reserved_special_token_109\|> ````` | 2.05205e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128039 | ````` <\|reserved_special_token_31\|> `````  | 2.05239e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128211 | ````` <\|reserved_special_token_203\|> ````` | 2.05239e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128252 | ````` <\|reserved_special_token_244\|> ````` | 2.05239e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128045 | ````` <\|reserved_special_token_37\|> `````  | 2.05341e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128202 | ````` <\|reserved_special_token_194\|> ````` | 2.05341e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -331,93 +336,93 @@
 |     128122 | ````` <\|reserved_special_token_114\|> ````` | 2.0558e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128108 | ````` <\|reserved_special_token_100\|> ````` | 2.05648e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128094 | ````` <\|reserved_special_token_86\|> `````  | 2.05682e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128029 | ````` <\|reserved_special_token_21\|> `````  | 2.05716e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128003 | ````` <\|reserved_special_token_1\|> `````   | 2.05716e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128029 | ````` <\|reserved_special_token_21\|> `````  | 2.05716e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128134 | ````` <\|reserved_special_token_126\|> ````` | 2.0575e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128088 | ````` <\|reserved_special_token_80\|> `````  | 2.0575e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128051 | ````` <\|reserved_special_token_43\|> `````  | 2.05818e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128125 | ````` <\|reserved_special_token_117\|> ````` | 2.05853e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128072 | ````` <\|reserved_special_token_64\|> `````  | 2.05853e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128157 | ````` <\|reserved_special_token_149\|> ````` | 2.05853e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128072 | ````` <\|reserved_special_token_64\|> `````  | 2.05853e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128219 | ````` <\|reserved_special_token_211\|> ````` | 2.05887e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128034 | ````` <\|reserved_special_token_26\|> `````  | 2.05955e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128116 | ````` <\|reserved_special_token_108\|> ````` | 2.05955e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128034 | ````` <\|reserved_special_token_26\|> `````  | 2.05955e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128005 | ````` <\|reserved_special_token_2\|> `````   | 2.05989e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128228 | ````` <\|reserved_special_token_220\|> ````` | 2.05989e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128142 | ````` <\|reserved_special_token_134\|> ````` | 2.05989e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128167 | ````` <\|reserved_special_token_159\|> ````` | 2.06023e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128204 | ````` <\|reserved_special_token_196\|> ````` | 2.06057e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128175 | ````` <\|reserved_special_token_167\|> ````` | 2.06057e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128139 | ````` <\|reserved_special_token_131\|> ````` | 2.06091e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128207 | ````` <\|reserved_special_token_199\|> ````` | 2.06091e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128139 | ````` <\|reserved_special_token_131\|> ````` | 2.06091e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128120 | ````` <\|reserved_special_token_112\|> ````` | 2.06159e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128151 | ````` <\|reserved_special_token_143\|> ````` | 2.06227e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128201 | ````` <\|reserved_special_token_193\|> ````` | 2.06261e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128016 | ````` <\|reserved_special_token_8\|> `````   | 2.06295e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128232 | ````` <\|reserved_special_token_224\|> ````` | 2.06295e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128199 | ````` <\|reserved_special_token_191\|> ````` | 2.06328e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128100 | ````` <\|reserved_special_token_92\|> `````  | 2.06328e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128199 | ````` <\|reserved_special_token_191\|> ````` | 2.06328e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128025 | ````` <\|reserved_special_token_17\|> `````  | 2.06362e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128230 | ````` <\|reserved_special_token_222\|> ````` | 2.06362e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128112 | ````` <\|reserved_special_token_104\|> ````` | 2.06396e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128153 | ````` <\|reserved_special_token_145\|> ````` | 2.06396e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128112 | ````` <\|reserved_special_token_104\|> ````` | 2.06396e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128086 | ````` <\|reserved_special_token_78\|> `````  | 2.06464e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128008 | ````` <\|eom_id\|> `````                     | 2.06464e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128136 | ````` <\|reserved_special_token_128\|> ````` | 2.066e-21   | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128132 | ````` <\|reserved_special_token_124\|> ````` | 2.066e-21   | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128218 | ````` <\|reserved_special_token_210\|> ````` | 2.06668e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128208 | ````` <\|reserved_special_token_200\|> ````` | 2.06668e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128218 | ````` <\|reserved_special_token_210\|> ````` | 2.06668e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128128 | ````` <\|reserved_special_token_120\|> ````` | 2.06702e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128092 | ````` <\|reserved_special_token_84\|> `````  | 2.06736e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128248 | ````` <\|reserved_special_token_240\|> ````` | 2.06769e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128004 | ````` <\|finetune_right_pad_id\|> `````      | 2.06769e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128077 | ````` <\|reserved_special_token_69\|> `````  | 2.06803e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128181 | ````` <\|reserved_special_token_173\|> ````` | 2.06837e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128071 | ````` <\|reserved_special_token_63\|> `````  | 2.06837e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128073 | ````` <\|reserved_special_token_65\|> `````  | 2.06871e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128181 | ````` <\|reserved_special_token_173\|> ````` | 2.06837e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128042 | ````` <\|reserved_special_token_34\|> `````  | 2.06871e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128078 | ````` <\|reserved_special_token_70\|> `````  | 2.06905e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128073 | ````` <\|reserved_special_token_65\|> `````  | 2.06871e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128106 | ````` <\|reserved_special_token_98\|> `````  | 2.06905e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128021 | ````` <\|reserved_special_token_13\|> `````  | 2.06939e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128162 | ````` <\|reserved_special_token_154\|> ````` | 2.06939e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128078 | ````` <\|reserved_special_token_70\|> `````  | 2.06905e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128159 | ````` <\|reserved_special_token_151\|> ````` | 2.06939e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128007 | ````` <\|end_header_id\|> `````              | 2.06973e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128162 | ````` <\|reserved_special_token_154\|> ````` | 2.06939e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128021 | ````` <\|reserved_special_token_13\|> `````  | 2.06939e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128091 | ````` <\|reserved_special_token_83\|> `````  | 2.06973e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128061 | ````` <\|reserved_special_token_53\|> `````  | 2.06973e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128007 | ````` <\|end_header_id\|> `````              | 2.06973e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128035 | ````` <\|reserved_special_token_27\|> `````  | 2.07007e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128147 | ````` <\|reserved_special_token_139\|> ````` | 2.0704e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128050 | ````` <\|reserved_special_token_42\|> `````  | 2.07108e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128041 | ````` <\|reserved_special_token_33\|> `````  | 2.07108e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128056 | ````` <\|reserved_special_token_48\|> `````  | 2.07108e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128050 | ````` <\|reserved_special_token_42\|> `````  | 2.07108e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128020 | ````` <\|reserved_special_token_12\|> `````  | 2.07142e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128037 | ````` <\|reserved_special_token_29\|> `````  | 2.07142e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128020 | ````` <\|reserved_special_token_12\|> `````  | 2.07142e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128176 | ````` <\|reserved_special_token_168\|> ````` | 2.07142e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128084 | ````` <\|reserved_special_token_76\|> `````  | 2.07176e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128082 | ````` <\|reserved_special_token_74\|> `````  | 2.0721e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128080 | ````` <\|reserved_special_token_72\|> `````  | 2.0721e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128189 | ````` <\|reserved_special_token_181\|> ````` | 2.07243e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128082 | ````` <\|reserved_special_token_74\|> `````  | 2.0721e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128224 | ````` <\|reserved_special_token_216\|> ````` | 2.07243e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128126 | ````` <\|reserved_special_token_118\|> ````` | 2.07277e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128189 | ````` <\|reserved_special_token_181\|> ````` | 2.07243e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128203 | ````` <\|reserved_special_token_195\|> ````` | 2.07277e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128126 | ````` <\|reserved_special_token_118\|> ````` | 2.07277e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128186 | ````` <\|reserved_special_token_178\|> ````` | 2.07345e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128103 | ````` <\|reserved_special_token_95\|> `````  | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128210 | ````` <\|reserved_special_token_202\|> ````` | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128152 | ````` <\|reserved_special_token_144\|> ````` | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128249 | ````` <\|reserved_special_token_241\|> ````` | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128152 | ````` <\|reserved_special_token_144\|> ````` | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128210 | ````` <\|reserved_special_token_202\|> ````` | 2.07379e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128096 | ````` <\|reserved_special_token_88\|> `````  | 2.07412e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128069 | ````` <\|reserved_special_token_61\|> `````  | 2.07412e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128237 | ````` <\|reserved_special_token_229\|> ````` | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128182 | ````` <\|reserved_special_token_174\|> ````` | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128156 | ````` <\|reserved_special_token_148\|> ````` | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128030 | ````` <\|reserved_special_token_22\|> `````  | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128253 | ````` <\|reserved_special_token_245\|> ````` | 2.0748e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128182 | ````` <\|reserved_special_token_174\|> ````` | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128237 | ````` <\|reserved_special_token_229\|> ````` | 2.07446e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128052 | ````` <\|reserved_special_token_44\|> `````  | 2.0748e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128115 | ````` <\|reserved_special_token_107\|> ````` | 2.07581e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128253 | ````` <\|reserved_special_token_245\|> ````` | 2.0748e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128098 | ````` <\|reserved_special_token_90\|> `````  | 2.07581e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128115 | ````` <\|reserved_special_token_107\|> ````` | 2.07581e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128131 | ````` <\|reserved_special_token_123\|> ````` | 2.07581e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128165 | ````` <\|reserved_special_token_157\|> ````` | 2.07615e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128243 | ````` <\|reserved_special_token_235\|> ````` | 2.07615e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128059 | ````` <\|reserved_special_token_51\|> `````  | 2.07615e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128165 | ````` <\|reserved_special_token_157\|> ````` | 2.07615e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128214 | ````` <\|reserved_special_token_206\|> ````` | 2.07649e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128028 | ````` <\|reserved_special_token_20\|> `````  | 2.07649e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128220 | ````` <\|reserved_special_token_212\|> ````` | 2.07716e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -426,19 +431,19 @@
 |     128241 | ````` <\|reserved_special_token_233\|> ````` | 2.07851e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128251 | ````` <\|reserved_special_token_243\|> ````` | 2.07851e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128236 | ````` <\|reserved_special_token_228\|> ````` | 2.07851e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128184 | ````` <\|reserved_special_token_176\|> ````` | 2.08019e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128197 | ````` <\|reserved_special_token_189\|> ````` | 2.08019e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128184 | ````` <\|reserved_special_token_176\|> ````` | 2.08019e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128060 | ````` <\|reserved_special_token_52\|> `````  | 2.08087e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128246 | ````` <\|reserved_special_token_238\|> ````` | 2.0812e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128121 | ````` <\|reserved_special_token_113\|> ````` | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128015 | ````` <\|reserved_special_token_7\|> `````   | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128099 | ````` <\|reserved_special_token_91\|> `````  | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128123 | ````` <\|reserved_special_token_115\|> ````` | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128015 | ````` <\|reserved_special_token_7\|> `````   | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128121 | ````` <\|reserved_special_token_113\|> ````` | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128143 | ````` <\|reserved_special_token_135\|> ````` | 2.08154e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128002 | ````` <\|reserved_special_token_0\|> `````   | 2.08188e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128124 | ````` <\|reserved_special_token_116\|> ````` | 2.08221e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128081 | ````` <\|reserved_special_token_73\|> `````  | 2.08255e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128038 | ````` <\|reserved_special_token_30\|> `````  | 2.08255e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128081 | ````` <\|reserved_special_token_73\|> `````  | 2.08255e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128014 | ````` <\|reserved_special_token_6\|> `````   | 2.08289e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128183 | ````` <\|reserved_special_token_175\|> ````` | 2.08322e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128114 | ````` <\|reserved_special_token_106\|> ````` | 2.0839e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -447,14 +452,14 @@
 |     128033 | ````` <\|reserved_special_token_25\|> `````  | 2.08591e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128024 | ````` <\|reserved_special_token_16\|> `````  | 2.08625e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128090 | ````` <\|reserved_special_token_82\|> `````  | 2.08625e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128110 | ````` <\|reserved_special_token_102\|> ````` | 2.08658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128223 | ````` <\|reserved_special_token_215\|> ````` | 2.08658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128129 | ````` <\|reserved_special_token_121\|> ````` | 2.08658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128110 | ````` <\|reserved_special_token_102\|> ````` | 2.08658e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128185 | ````` <\|reserved_special_token_177\|> ````` | 2.08793e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128032 | ````` <\|reserved_special_token_24\|> `````  | 2.08826e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128140 | ````` <\|reserved_special_token_132\|> ````` | 2.08826e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128155 | ````` <\|reserved_special_token_147\|> ````` | 2.08893e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128032 | ````` <\|reserved_special_token_24\|> `````  | 2.08826e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128245 | ````` <\|reserved_special_token_237\|> ````` | 2.08893e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128155 | ````` <\|reserved_special_token_147\|> ````` | 2.08893e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128062 | ````` <\|reserved_special_token_54\|> `````  | 2.08893e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128233 | ````` <\|reserved_special_token_225\|> ````` | 2.08927e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128221 | ````` <\|reserved_special_token_213\|> ````` | 2.0896e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -467,10 +472,10 @@
 |     128068 | ````` <\|reserved_special_token_60\|> `````  | 2.09228e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128113 | ````` <\|reserved_special_token_105\|> ````` | 2.09228e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128188 | ````` <\|reserved_special_token_180\|> ````` | 2.09262e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128097 | ````` <\|reserved_special_token_89\|> `````  | 2.09295e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128172 | ````` <\|reserved_special_token_164\|> ````` | 2.09295e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128192 | ````` <\|reserved_special_token_184\|> ````` | 2.09329e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128097 | ````` <\|reserved_special_token_89\|> `````  | 2.09295e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128102 | ````` <\|reserved_special_token_94\|> `````  | 2.09329e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128192 | ````` <\|reserved_special_token_184\|> ````` | 2.09329e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128054 | ````` <\|reserved_special_token_46\|> `````  | 2.09362e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128174 | ````` <\|reserved_special_token_166\|> ````` | 2.09362e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128145 | ````` <\|reserved_special_token_137\|> ````` | 2.09396e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -478,18 +483,18 @@
 |     128229 | ````` <\|reserved_special_token_221\|> ````` | 2.0963e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128170 | ````` <\|reserved_special_token_162\|> ````` | 2.09663e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128149 | ````` <\|reserved_special_token_141\|> ````` | 2.09697e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128195 | ````` <\|reserved_special_token_187\|> ````` | 2.09764e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128057 | ````` <\|reserved_special_token_49\|> `````  | 2.09764e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128195 | ````` <\|reserved_special_token_187\|> ````` | 2.09764e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128242 | ````` <\|reserved_special_token_234\|> ````` | 2.09864e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128095 | ````` <\|reserved_special_token_87\|> `````  | 2.09897e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128065 | ````` <\|reserved_special_token_57\|> `````  | 2.09897e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128095 | ````` <\|reserved_special_token_87\|> `````  | 2.09897e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128118 | ````` <\|reserved_special_token_110\|> ````` | 2.09931e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128141 | ````` <\|reserved_special_token_133\|> ````` | 2.10031e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128070 | ````` <\|reserved_special_token_62\|> `````  | 2.10064e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128255 | ````` <\|reserved_special_token_247\|> ````` | 2.10097e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128250 | ````` <\|reserved_special_token_242\|> ````` | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128144 | ````` <\|reserved_special_token_136\|> ````` | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128013 | ````` <\|reserved_special_token_5\|> `````   | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128250 | ````` <\|reserved_special_token_242\|> ````` | 2.10131e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128216 | ````` <\|reserved_special_token_208\|> ````` | 2.10164e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128254 | ````` <\|reserved_special_token_246\|> ````` | 2.10164e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128150 | ````` <\|reserved_special_token_142\|> ````` | 2.10197e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
@@ -502,8 +507,8 @@
 |     128173 | ````` <\|reserved_special_token_165\|> ````` | 2.10497e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128234 | ````` <\|reserved_special_token_226\|> ````` | 2.1053e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128191 | ````` <\|reserved_special_token_183\|> ````` | 2.10597e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
-|     128023 | ````` <\|reserved_special_token_15\|> `````  | 2.10664e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128048 | ````` <\|reserved_special_token_40\|> `````  | 2.10664e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
+|     128023 | ````` <\|reserved_special_token_15\|> `````  | 2.10664e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128074 | ````` <\|reserved_special_token_66\|> `````  | 2.1073e-21  | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128104 | ````` <\|reserved_special_token_96\|> `````  | 2.10763e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |
 |     128187 | ````` <\|reserved_special_token_179\|> ````` | 2.10896e-21 | <span style='border: 1px solid rgb(169, 68, 66);'>4.6e-05</span> |

@@ -2,20 +2,23 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 0.979 +/- 0.190
-  * Token used for verification prompt building: `Acknowledgements`
-  * Verification threshold: 0.460
-  * Threshold for showing candidate under-trained tokens: 0.199
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.219
-* Embeddings shape: (64000, 4096)
-* Vocabulary size: 64000
-  * Number of single byte tokens: 354, of which 112 below indicator threshold
-  * Number of special tokens: 238, of which 187 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 3, of which 3 below indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [64000, 4096]
+* Tokenizer Info: 
+  * Vocab Size: 64000
+  * Tokenizer Class: LlamaTokenizer
+  * Token for verification prompt building: Acknowledgements
+  * Token id for verification prompt building: 35477
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 0.979 +/- 0.190
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 1279, 1094 non-special, 299 below p = 0.01 threshold, 138 below soft indicator threshold
+  * Number of single byte tokens: 354, of which 112 below indicator threshold
+  * Number of special tokens: 3, of which 3 below indicator threshold
+  * Number of non-single-byte unreachable tokens: 3, of which 3 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/01_ai_Yi_Coder_9B_Chat.png)

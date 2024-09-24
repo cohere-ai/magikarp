@@ -2,21 +2,26 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 0.688 +/- 0.099
-  * Token used for verification prompt building: `MethodAccessorImpl`
-  * Verification threshold: 0.408
-  * Threshold for showing candidate under-trained tokens: 0.121
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.129
-* Embeddings shape: (102400, 4096)
-* Vocabulary size: 102400
-  * Number of single byte tokens: 256, of which 13 below indicator threshold
-  * Number of special tokens: 314, of which 303 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 2, of which 0 below indicator threshold
-  * Number of non-single-byte UTF-fragment tokens: 1222, 7 below soft indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [102400, 4096]
+* Tokenizer Info: 
+  * Vocab Size: 102400
+  * Tokenizer Class: GPT2Tokenizer
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Input
+  * Token for verification prompt building: MethodAccessorImpl
+  * Token id for verification prompt building: 96943
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 0.688 +/- 0.099
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 2022, 1648 non-special, 462 below p = 0.01 threshold, 224 below soft indicator threshold
+  * Number of single byte tokens: 256, of which 13 below indicator threshold
+  * Number of special tokens: 2, of which 0 below indicator threshold
+  * Number of non-single-byte unreachable tokens: 2, of which 0 below indicator threshold
+  * Number of non-single-byte UTF-fragment tokens:  1222, of which 7 below soft indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/LGAI_EXAONE_EXAONE_3_0_7_8B_Instruct.png)

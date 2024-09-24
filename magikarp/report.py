@@ -8,9 +8,9 @@ import seaborn as sns
 import tabulate
 
 from magikarp.tokenization import TokenizerAnalyzer
-from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos, escape_token_for_markdown
+from magikarp.utils import output_name, select_placeholder_token, categorize_token_infos, escape_token_for_markdown, get_model_and_tokenizer_info, dict_to_markdown_list
 
-
+VERIFICATION_THRESHOLD=0.01
 plt.rcParams["text.usetex"] = True
 
 
@@ -103,7 +103,7 @@ def verification_plot(
 
     indicator_values = [c["main_indicator"] for c in verification_candidates]
     max_probs = [c["max_prob"] for c in verification_candidates]
-    n_below_threshold = sum(p < 0.01 for p in max_probs)
+    n_below_threshold = sum(p < VERIFICATION_THRESHOLD for p in max_probs)
     ylabel = "Max(token probability in verification)"
     indicator_name = plot_xylabel(indicator_name)
     g = sns.scatterplot(
@@ -214,7 +214,8 @@ def make_tokens_table(
 def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hires=False):
     indicator_names, undertrained_token_indicators = get_indicators(moda, token_infos)
 
-    build_prompt_token = select_placeholder_token(toka, token_infos)
+    # Get model and tokenizer info
+    info = get_model_and_tokenizer_info(model_id, toka, token_infos)
     categorized_tokens = categorize_token_infos(toka, token_infos)
 
     # plot verifications first, so we can look at them even if we don't have a threshold
@@ -292,41 +293,37 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             xcols=["max_prob"],
             find_superstrings_in=token_infos.values(),
         )
-        undecodable_report, n_undecodable_below_thr = make_tokens_table(
+        partial_utf8_report, n_partial_utf8_below_thr = make_tokens_table(
             toka,
             categorized_tokens.partial_utf8,
             full=full,
             threshold=candidates_threshold,
             find_superstrings_in=token_infos.values(),
-        )
+            )
+
+
+        info["Indicator summary"] = {
+            "Indicator for under-trained tokens": indicator_names[indicator_ix],
+            "Overall distribution": f"{np.mean(undertrained_token_indicators[:, indicator_ix]):.3f} +/- {np.std(undertrained_token_indicators[:, indicator_ix]):.3f}",
+        }
+        info["Detected Token Counts"] = {
+            "Number of tested under-trained tokens": f"{len(categorized_tokens.candidates)}, {len(categorized_tokens.candidates_nosb)} non-special, {sum(verifications_below_threshold)} below p = {p_verify_threshold} threshold, {n_magikarps_below_thr} below soft indicator threshold",
+            "Number of single byte tokens": f"{len(categorized_tokens.bytes)}, of which {n_bytes_below_thr} below indicator threshold",
+            "Number of special tokens": f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold"
+        }
+        if categorized_tokens.unreachables:
+            info["Detected Token Counts"]["Number of non-single-byte unreachable tokens"] =f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold"
+        if categorized_tokens.partial_utf8:
+            info["Detected Token Counts"]["Number of non-single-byte UTF-fragment tokens"] = f" {len(categorized_tokens.partial_utf8)}, of which {n_partial_utf8_below_thr} below soft indicator threshold"
+
 
         markdown_report = f"# Report for `{model_id}`\n"
         markdown_report += "\n## Model info\n\n"
-        if moda is not None:
-            markdown_report += "* Tied embeddings: " + ("yes" if moda.tied_embeddings else "no") + "\n"
-            markdown_report += f"* LM head uses bias: " + ("yes" if moda.output_embeddings_has_bias else "no") + "\n"
 
-        markdown_report += f"* Indicator for under-trained tokens: {indicator_names[indicator_ix]}\n"
-        indicator_values_mean = np.mean(undertrained_token_indicators[:, indicator_ix])
-        indicator_values_std = np.std(undertrained_token_indicators[:, indicator_ix])
-        markdown_report += f"  * Overall distribution {indicator_values_mean:.3f} +/- {indicator_values_std:.3f}\n"
-        markdown_report += f"  * Token used for verification prompt building: `{toka.vocab_to_readable_string(build_prompt_token['i'])}`\n"
-        markdown_report += f"  * Verification threshold: {categorized_tokens.threshold:.3f}\n"
-        markdown_report += f"  * Threshold for showing candidate under-trained tokens: {candidates_threshold:.3f}\n"
-        markdown_report += f"  * Median verified threshold (for bytes, unreachable and special tokens): {verified_median_threshold:.3f}\n"
+        # Add model and tokenizer info
+        markdown_report += dict_to_markdown_list(info)
 
-        if moda is not None:
-            markdown_report += f"* Embeddings shape: {moda.embeddings.shape}\n"
-        markdown_report += f"* Vocabulary size: {len(token_infos)}\n"
-        markdown_report += f"  * Number of single byte tokens: {len(categorized_tokens.bytes)}, of which {n_bytes_below_thr} below indicator threshold\n"
-        markdown_report += f"  * Number of special tokens: {len(categorized_tokens.specials)}, of which {n_special_below_thr} below indicator threshold\n"
-        if len(categorized_tokens.unreachables):
-            markdown_report += f"  * Number of non-single-byte unreachable tokens: {len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold\n"
-        if len(categorized_tokens.partial_utf8):
-            markdown_report += f"  * Number of non-single-byte UTF-fragment tokens: {len(categorized_tokens.partial_utf8)}, {n_undecodable_below_thr} below soft indicator threshold\n"
-        markdown_report += f"  * Number of tested under-trained tokens: {len(categorized_tokens.candidates)}, {len(categorized_tokens.candidates_nosb)} non-special, {sum(verifications_below_threshold)} below p = {p_verify_threshold} threshold, {n_magikarps_below_thr} below soft indicator threshold\n"
         # plots
-
         markdown_report += f"\n## Under-trained token indicators plot\n![Indicators scatter plots]({indicators_filename.replace('results/','../')})\n"
         markdown_report += (
             f"\n## Verification plot\n![Verification plot]({verification_filename.replace('results/','../')})\n"
@@ -335,7 +332,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
         # tables
         markdown_report += f"\n## Under-trained token verification results\n{magikarps_report}\n"
         if categorized_tokens.partial_utf8:
-            markdown_report += f"\n## Tokens with partial UTF-8 sequences\n{undecodable_report}\n"
+            markdown_report += f"\n## Tokens with partial UTF-8 sequences\n{partial_utf8_report}\n"
 
         markdown_report += f"\n## Byte tokens\n{bytes_report}\n"
         markdown_report += f"\n## Special tokens\n{special_report}\n"

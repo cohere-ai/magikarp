@@ -2,20 +2,23 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 0.871 +/- 0.105
-  * Token used for verification prompt building: `InvalidArgumentException`
-  * Verification threshold: 0.563
-  * Threshold for showing candidate under-trained tokens: 0.145
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.146
-* Embeddings shape: (92544, 4096)
-* Vocabulary size: 92544
-  * Number of single byte tokens: 383, of which 3 below indicator threshold
-  * Number of special tokens: 150, of which 148 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 64, of which 0 below indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [92544, 4096]
+* Tokenizer Info: 
+  * Vocab Size: 92544
+  * Tokenizer Class: InternLM2Tokenizer
+  * Token for verification prompt building: InvalidArgumentException
+  * Token id for verification prompt building: 54563
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 0.871 +/- 0.105
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 1845, 1700 non-special, 312 below p = 0.01 threshold, 161 below soft indicator threshold
+  * Number of single byte tokens: 383, of which 3 below indicator threshold
+  * Number of special tokens: 64, of which 0 below indicator threshold
+  * Number of non-single-byte unreachable tokens: 64, of which 0 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/internlm_internlm2_5_7b_chat.png)

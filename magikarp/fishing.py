@@ -171,6 +171,7 @@ def load_analyzers(
 
 def main(
     model_id: str,
+    report_only: bool = False,
     trust_remote_code=False,
     threshold: Optional[float] = None,
     threshold_ratio: float = DEFAULT_THRESHOLD_PERCENTILE,  # % of tokens to verify
@@ -182,39 +183,38 @@ def main(
     known_unused_tokens = known_unused_tokens or UNUSED_TOKENS.get(model_id, [])
     toka, moda, token_infos = load_analyzers(
         model_id,
-        avoid_loading_model=False,
+        avoid_loading_model=report_only,
         known_unused_tokens=known_unused_tokens,
         load_verifications=not overwrite,
         trust_remote_code=trust_remote_code,
         indicator_ix=indicator_ix,
     )
-    assert moda is not None  # for type checker
+    if not report_only:
+        assert moda is not None  # for type checker
 
-    candidates, threshold = candidates_for_verification(
-        token_infos, threshold_ratio=threshold_ratio, threshold=threshold
-    )
-    remaining_candidates = [tc for tc in candidates if "verification" not in tc]
-    write_verification_results(token_infos, model_id)
-    print(
-        f"Verifying {len(remaining_candidates)} of total {len(candidates)} candidates below threshold {threshold:.3f} of {moda.indicator_names[indicator_ix]!r} for model {model_id} with vocab size {len(token_infos)} on device {device}."
-    )
-
-    build_prompt_token = select_placeholder_token(toka, token_infos)
-
-    moda.model.to(device)
-    t0 = time.perf_counter()
-    for ii, token_info in enumerate(remaining_candidates):
-        token_info["verification"], _ = verify_magikarp(toka, moda, token_info, build_prompt_token)
-        max_prob = classify_verification(token_info)
-        print(
-            f"[{time.perf_counter()-t0:.0f}s, {ii+1}/{len(remaining_candidates)}] {token_info['magikarp']} with max_prob = {max_prob:.2e} token {token_info['i']}: {toka.vocab_to_readable_string(token_info['i'])!r} verification info: {token_info['verification']}"
+        candidates, threshold = candidates_for_verification(
+            token_infos, threshold_ratio=threshold_ratio, threshold=threshold
         )
-        if ii % 10 == 0:
-            write_verification_results(token_infos, model_id)
-    print(
-        "Finished verification, wrote results to",
-        write_verification_results(token_infos, model_id),
-    )
+        remaining_candidates = [tc for tc in candidates if "verification" not in tc]
+        write_verification_results(token_infos, model_id)
+        print(
+            f"Verifying {len(remaining_candidates)} of total {len(candidates)} candidates below threshold {threshold:.3f} of {moda.indicator_names[indicator_ix]!r} for model {model_id} with vocab size {len(token_infos)} on device {device}."
+        )
+        build_prompt_token = select_placeholder_token(toka, token_infos)
+        moda.model.to(device)
+        t0 = time.perf_counter()
+        for ii, token_info in enumerate(remaining_candidates):
+            token_info["verification"], _ = verify_magikarp(toka, moda, token_info, build_prompt_token)
+            max_prob = classify_verification(token_info)
+            print(
+                f"[{time.perf_counter()-t0:.0f}s, {ii+1}/{len(remaining_candidates)}] {token_info['magikarp']} with max_prob = {max_prob:.2e} token {token_info['i']}: {toka.vocab_to_readable_string(token_info['i'])!r} verification info: {token_info['verification']}"
+            )
+            if ii % 10 == 0:
+                write_verification_results(token_infos, model_id)
+        print(
+            "Finished verification, wrote results to",
+            write_verification_results(token_infos, model_id),
+        )
     make_tokens_report(model_id, toka, moda, token_infos, indicator_ix)
 
 

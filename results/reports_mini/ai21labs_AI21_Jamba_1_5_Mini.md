@@ -2,21 +2,26 @@
 
 ## Model info
 
-* Tied embeddings: no
-* LM head uses bias: no
-* Indicator for under-trained tokens: E_{in} L2 Norm
-  * Overall distribution 0.588 +/- 0.113
-  * Token used for verification prompt building: `ArgumentException`
-  * Verification threshold: 0.402
-  * Threshold for showing candidate under-trained tokens: 0.218
-  * Median verified threshold (for bytes, unreachable and special tokens): 0.010
-* Embeddings shape: (65536, 4096)
-* Vocabulary size: 65536
-  * Number of single byte tokens: 355, of which 113 below indicator threshold
-  * Number of special tokens: 1543, of which 1526 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 39410, of which 0 below indicator threshold
-  * Number of non-single-byte UTF-fragment tokens: 1, 0 below soft indicator threshold
+* Model Info: 
+  * Tied embeddings: False
+  * LM head uses bias: False
+  * Embeddings shape: [65536, 4096]
+* Tokenizer Info: 
+  * Vocab Size: 65536
+  * Tokenizer Class: LlamaTokenizer
+  * Tokenizer Type: BPE
+  * Bytes handling: Byte Fallback
+  * Token for verification prompt building: ArgumentException
+  * Token id for verification prompt building: 38226
+* Indicator summary: 
+  * Indicator for under-trained tokens: E_{in} L2 Norm
+  * Overall distribution: 0.588 +/- 0.113
+* Detected Token Counts: 
   * Number of tested under-trained tokens: 492, 396 non-special, 3 below p = 0.01 threshold, 11 below soft indicator threshold
+  * Number of single byte tokens: 355, of which 113 below indicator threshold
+  * Number of special tokens: 39410, of which 0 below indicator threshold
+  * Number of non-single-byte unreachable tokens: 39410, of which 0 below indicator threshold
+  * Number of non-single-byte UTF-fragment tokens:  1, of which 0 below soft indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/ai21labs_AI21_Jamba_1_5_Mini.png)

@@ -4,9 +4,13 @@ This repository contains the code and extended results for the paper [Fishing fo
 
 ## Exploring Results
 
-The most interesting thing in this repository is probably the detailed reports, found in [results/reports](results/reports).
+The most interesting thing in this repository is probably the detailed reports and summary table found in [results/](results/summary.md).
+For each model, there is a 'full' and 'mini' report. The 'mini' version can always be opened on github, but the full version may require downloading and viewing locally due to file size limitations.
 
-* `▁` (but not `_`) is a space, and `¿entry?` represents tokens with a vocabulary `entry` which was not encoded as expected.
+In these reports:
+
+* `▁` is a space (but not `_`)
+* `¿entry?` represents tokens with a vocabulary `entry` which was not encoded as expected.
 
 
 ## Running on other models
@@ -19,6 +23,8 @@ The most interesting thing in this repository is probably the detailed reports, 
 poetry shell   # make/activate your virtual environment
 poetry install # only the first time or on updates
 ```
+
+For some newer models you may need to install a newer transformers version using `pip install git+https://github.com/huggingface/transformers.git`
 
 </details>
 
@@ -38,7 +44,7 @@ For models with tied embeddings, or for nicer visualizations and results, you wi
 
 ### Generating results
 
-* `generate_results.py`: Generates plots and markdown reports. Typically after finishing verification you should `python generate_results.py [your_model_id]` and then look in `results`.
+* `generate_results.py`: Generates plots and markdown reports. This happens automatically after verification, but to regenerate you can `python generate_results.py [your_model_id]` and then look in `results`.
 
 
 ## Contributing

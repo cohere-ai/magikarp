@@ -3,16 +3,19 @@ import pytest
 from magikarp.fishing import UNUSED_TOKENS, TokenizerAnalyzer
 
 
-TEST_MODELS = [m for m in UNUSED_TOKENS.keys() if "WizardLM" not in m]
+TEST_MODELS = [m for m in UNUSED_TOKENS.keys()]
 
 
 @pytest.mark.parametrize("model_id", TEST_MODELS)
 def test_tokenizer(model_id):
-    toka = TokenizerAnalyzer(model_id)
+    toka = TokenizerAnalyzer(model_id, trust_remote_code=True)
 
     phrases = ["test", " test", "", "a", "\x00"]
     for phrase in phrases:
         toks = toka.clean_encode(phrase)
+        if any(t == toka.tokenizer.unk_token_id for t in toks):
+            print(f"Skipping {model_id} for {phrase!r} -> {toks} because it has an unk token")
+            continue
         vocabs = [toka.vocab_i2s[i] for i in toks]
         decoded = toka.clean_decode(toks)
         print(

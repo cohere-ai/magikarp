@@ -100,4 +100,5 @@ UNUSED_TOKENS = {
     "ai21labs/AI21-Jamba-1.5-Mini": JAMBA_UNUSED_TOKENS,
     "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
     "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
+    "utter-project/EuroLLM-1.7B": np.arange(5, 260),  # extra
 }

@@ -88,13 +88,15 @@ class TokenizerAnalyzer:
         if self.vocab_i2s[tokens_no_space[0]][0] in self.SPACE_CHARS or any(
             p in self.model_id for p in self.FORCE_STARTING_SPACE_MODELS
         ):
+            self.starting_space_mode = True
             self.start_prefix_ids = []
             for prefix in self.START_PREFIXES:
                 enc_prefix = self.tokenizer.encode(prefix, add_special_tokens=False)
-                assert len(enc_prefix) == 1, f"The prefix should be a single token, but was {enc_prefix}"
-                self.starting_space_mode = True
-                self.start_prefix_ids.append(enc_prefix[0])
-                #print(f"Warning: The tokenizer for {self.model_id} adds spaces to the start or does other space manipulations, trying to counteract it by using the prefix {prefix!r} = {enc_prefix}")
+                if len(enc_prefix) != 1:
+                    self.start_prefix_ids.append(None)
+                else:
+                    self.start_prefix_ids.append(enc_prefix[0])
+                assert any(self.start_prefix_ids), f"The prefix {prefix!r} should be a single token for at least one of the prefixes {self.START_PREFIXES!r}"
         else:
             assert (
                 self.vocab_i2s[tokens_no_space[0]][0] == "t"
@@ -105,6 +107,8 @@ class TokenizerAnalyzer:
     def clean_encode(self, s) -> list[int]:
         if self.starting_space_mode:
             for prefix_id, prefix in zip(self.start_prefix_ids, self.START_PREFIXES):
+                if prefix_id is None:
+                    continue
                 s = prefix + s
                 tokens = self.tokenizer.encode(s, add_special_tokens=False)
                 if tokens[0] == prefix_id:
@@ -119,6 +123,8 @@ class TokenizerAnalyzer:
     def clean_decode(self, tokens):
         if self.starting_space_mode:  # this prevents the tokenizer from dropping the starting space when it exists
             for prefix_id, prefix in zip(self.start_prefix_ids, self.START_PREFIXES):
+                if prefix_id is None:
+                    continue
                 tokens = [prefix_id] + tokens
                 decoded = self.tokenizer.decode(tokens, skip_special_tokens=False)
                 if decoded[0] == " ":  # e.g. mistral, but not llama2

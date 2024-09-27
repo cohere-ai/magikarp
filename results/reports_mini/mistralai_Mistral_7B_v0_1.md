@@ -32,45 +32,45 @@
 
 |   token_id | token              |   indicator | max_prob                                                         | in_other_tokens                                                             |
 |------------|--------------------|-------------|------------------------------------------------------------------|-----------------------------------------------------------------------------|
-|      31738 | ````` \uefc0 ````` |  0.00256505 | <span style='border: 1px solid rgb(169, 68, 66);'>1.1e-05</span> |                                                                             |
-|      20418 | ````` ▁/**\r ````` |  0.00386389 | <span style='border: 1px solid rgb(169, 68, 66);'>9.7e-07</span> |                                                                             |
-|      26636 | ````` });\r `````  |  0.00487029 | <span style='border: 1px solid rgb(169, 68, 66);'>5.7e-06</span> |                                                                             |
-|      26407 | ````` };\r `````   |  0.00519749 | <span style='border: 1px solid rgb(169, 68, 66);'>1.8e-07</span> |                                                                             |
-|      26392 | ````` ▁});\r ````` |  0.0054809  | <span style='border: 1px solid rgb(169, 68, 66);'>8.3e-06</span> |                                                                             |
-|      26083 | ````` ▁//\r `````  |  0.00611446 | <span style='border: 1px solid rgb(169, 68, 66);'>3e-06</span>   |                                                                             |
-|      18759 | ````` ';\r `````   |  0.00615078 | <span style='border: 1px solid rgb(169, 68, 66);'>1.9e-06</span> |                                                                             |
-|       9823 | ````` */\r `````   |  0.00744269 | <span style='border: 1px solid rgb(169, 68, 66);'>8.9e-07</span> |                                                                             |
-|      25833 | ````` >?[< `````   |  0.00774109 | <span style='border: 1px solid rgb(169, 68, 66);'>2e-05</span>   |                                                                             |
-|       7608 | ````` ▁*/\r `````  |  0.00839155 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00027</span> |                                                                             |
-|      28171 | ````` ]);\r `````  |  0.00891207 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00018</span> |                                                                             |
-|      23139 | ````` ▁};\r `````  |  0.0090801  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00036</span> |                                                                             |
-|      15056 | ````` ());\r ````` |  0.00931322 | <span style='border: 1px solid rgb(169, 68, 66);'>3.5e-07</span> |                                                                             |
-|      17695 | ````` },\r `````   |  0.0093152  | <span style='border: 1px solid rgb(169, 68, 66);'>1.2e-05</span> | <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁},\r `````</span>  |
-|      12193 | ````` ▁);\r `````  |  0.00948616 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00039</span> |                                                                             |
-|      31363 | ````` \x85 `````   |  0.00975407 | <span style='border: 1px solid rgb(169, 68, 66);'>6.5e-10</span> |                                                                             |
-|      14756 | ````` /**\r `````  |  0.0103307  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00041</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁/**\r `````</span> |
-|      16943 | ````` ');\r `````  |  0.0108719  | <span style='border: 1px solid rgb(169, 68, 66);'>6.1e-06</span> |                                                                             |
-|      20692 | ````` ▁},\r `````  |  0.0110457  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0012</span>  |                                                                             |
-|      10278 | ````` ',\r `````   |  0.0124804  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00067</span> |                                                                             |
+|      31738 | ````` \uefc0 ````` |  0.00256505 | <span style='border: 1px solid rgb(169, 68, 66);'>2.5e-10</span> |                                                                             |
+|      20418 | ````` ▁/**\r ````` |  0.00386389 | <span style='border: 1px solid rgb(169, 68, 66);'>2.9e-10</span> |                                                                             |
+|      26636 | ````` });\r `````  |  0.00487029 | <span style='border: 1px solid rgb(169, 68, 66);'>6.7e-07</span> |                                                                             |
+|      26407 | ````` };\r `````   |  0.00519749 | <span style='border: 1px solid rgb(169, 68, 66);'>5.5e-09</span> |                                                                             |
+|      26392 | ````` ▁});\r ````` |  0.0054809  | <span style='border: 1px solid rgb(169, 68, 66);'>4.9e-06</span> |                                                                             |
+|      26083 | ````` ▁//\r `````  |  0.00611446 | <span style='border: 1px solid rgb(169, 68, 66);'>1.3e-05</span> |                                                                             |
+|      18759 | ````` ';\r `````   |  0.00615078 | <span style='border: 1px solid rgb(169, 68, 66);'>7.1e-06</span> |                                                                             |
+|       9823 | ````` */\r `````   |  0.00744269 | <span style='border: 1px solid rgb(169, 68, 66);'>6.2e-07</span> |                                                                             |
+|      25833 | ````` >?[< `````   |  0.00774109 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00017</span> |                                                                             |
+|       7608 | ````` ▁*/\r `````  |  0.00839155 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0011</span>  |                                                                             |
+|      28171 | ````` ]);\r `````  |  0.00891207 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00032</span> |                                                                             |
+|      23139 | ````` ▁};\r `````  |  0.0090801  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00048</span> |                                                                             |
+|      15056 | ````` ());\r ````` |  0.00931322 | <span style='border: 1px solid rgb(169, 68, 66);'>5.5e-07</span> |                                                                             |
+|      17695 | ````` },\r `````   |  0.0093152  | <span style='border: 1px solid rgb(169, 68, 66);'>2.3e-05</span> | <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁},\r `````</span>  |
+|      12193 | ````` ▁);\r `````  |  0.00948616 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00048</span> |                                                                             |
+|      31363 | ````` \x85 `````   |  0.00975407 | <span style='border: 1px solid rgb(169, 68, 66);'>1.7e-09</span> |                                                                             |
+|      14756 | ````` /**\r `````  |  0.0103307  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00097</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁/**\r `````</span> |
+|      16943 | ````` ');\r `````  |  0.0108719  | <span style='border: 1px solid rgb(169, 68, 66);'>7.1e-07</span> |                                                                             |
+|      20692 | ````` ▁},\r `````  |  0.0110457  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0015</span>  |                                                                             |
+|      10278 | ````` ',\r `````   |  0.0124804  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00076</span> |                                                                             |
 <details><summary>16 additional entries below threshold</summary>
 
 |   token_id | token               |   indicator | max_prob                                                         | in_other_tokens                                                             |
 |------------|---------------------|-------------|------------------------------------------------------------------|-----------------------------------------------------------------------------|
-|      11880 | ````` ";\r `````    |   0.0140456 | <span style='border: 1px solid rgb(255, 145, 0);'>0.001</span>   |                                                                             |
-|      30929 | ````` ᥀ `````       |   0.0149118 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0013</span>  |                                                                             |
+|      11880 | ````` ";\r `````    |   0.0140456 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0014</span>  |                                                                             |
+|      30929 | ````` ᥀ `````       |   0.0149118 | <span style='border: 1px solid rgb(255, 145, 0);'>0.002</span>   |                                                                             |
 |      14420 | ````` ];\r `````    |   0.0156465 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00053</span> |                                                                             |
-|      18055 | ````` ){\r `````    |   0.0159617 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00088</span> |                                                                             |
+|      18055 | ````` ){\r `````    |   0.0159617 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0013</span>  |                                                                             |
 |      10941 | ````` ));\r `````   |   0.0173568 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00013</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ());\r `````</span> |
-|      14980 | ````` ">\r `````    |   0.0173889 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0022</span>  |                                                                             |
-|       6913 | ````` ");\r `````   |   0.025225  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00068</span> |                                                                             |
-|      25900 | ````` iNdEx `````   |   0.0259386 | <span style='border: 1px solid rgb(255, 145, 0);'>0.002</span>   |                                                                             |
-|      22186 | ````` ')\r `````    |   0.0271444 | <span style='border: 1px solid rgb(255, 145, 0);'>0.001</span>   |                                                                             |
+|      14980 | ````` ">\r `````    |   0.0173889 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0025</span>  |                                                                             |
+|       6913 | ````` ");\r `````   |   0.025225  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00064</span> |                                                                             |
+|      25900 | ````` iNdEx `````   |   0.0259386 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0019</span>  |                                                                             |
+|      22186 | ````` ')\r `````    |   0.0271444 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00096</span> |                                                                             |
 |      10939 | ````` ",\r `````    |   0.0279031 | <span style='border: 1px solid rgb(255, 145, 0);'>0.001</span>   |                                                                             |
-|      26831 | ````` ▁febbra ````` |   0.0298659 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00089</span> | ````` ▁febbraio `````                                                       |
-|       4420 | ````` ();\r `````   |   0.0299747 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0035</span>  |                                                                             |
+|      26831 | ````` ▁febbra ````` |   0.0298659 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00083</span> | ````` ▁febbraio `````                                                       |
+|       4420 | ````` ();\r `````   |   0.0299747 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0033</span>  |                                                                             |
 |      19248 | ````` NdEx `````    |   0.03231   | <span style='border: 1px solid rgb(40, 167, 69);'>0.56</span>    | <span style='border: 1px solid rgb(255, 145, 0);'>````` iNdEx `````</span>  |
-|       3426 | ````` ▁}\r `````    |   0.0361206 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0012</span>  |                                                                             |
-|       9962 | ````` ()\r `````    |   0.0381206 | <span style='border: 1px solid rgb(251, 189, 8);'>0.012</span>   |                                                                             |
+|       3426 | ````` ▁}\r `````    |   0.0361206 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00099</span> |                                                                             |
+|       9962 | ````` ()\r `````    |   0.0381206 | <span style='border: 1px solid rgb(251, 189, 8);'>0.014</span>   |                                                                             |
 |      31853 | ````` ⇽ `````       |   0.039285  | <span style='border: 1px solid rgb(40, 167, 69);'>0.57</span>    |                                                                             |
 </details>
 

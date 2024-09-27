@@ -24,7 +24,7 @@ def model_needs_fast_tokenizer(model_id):
 
 
 class TokenizerAnalyzer:
-    START_PREFIX = "«"
+    START_PREFIXES = ["«", "»"]
     SPACE_CHARS = " ▁_Ġ"
     FORCE_STARTING_SPACE_MODELS = [
         "01-ai/Yi",
@@ -35,7 +35,7 @@ class TokenizerAnalyzer:
     def __init__(
         self,
         model_id: str,
-        use_fast: bool = None,
+        use_fast: Optional[bool] = None,
         trust_remote_code: bool = False,
         tokenizer=None,
     ):
@@ -82,20 +82,21 @@ class TokenizerAnalyzer:
         # we can not rely on huggingface settings like add_prefix_space or cleanup_tokenization_spaces
         # as some models use preprocessors etc instead
         # so, we check if the input appears manipulated, and counteract it if necessary
-        prefix_str = self.START_PREFIX
         test_phrase_without_space = "test"
         tokens_no_space = self.tokenizer.encode(test_phrase_without_space, add_special_tokens=False)
 
         if self.vocab_i2s[tokens_no_space[0]][0] in self.SPACE_CHARS or any(
             p in self.model_id for p in self.FORCE_STARTING_SPACE_MODELS
         ):
-            enc_prefix = self.tokenizer.encode(prefix_str, add_special_tokens=False)
-            assert len(enc_prefix) == 1, f"The prefix should be a single token, but was {enc_prefix}"
             self.starting_space_mode = True
-            self.start_prefix_id = enc_prefix[0]
-            print(
-                f"Warning: The tokenizer for {self.model_id} adds spaces to the start or does other space manipulations, trying to counteract it by using the prefix {prefix_str!r} = {enc_prefix}"
-            )
+            self.start_prefix_ids = []
+            for prefix in self.START_PREFIXES:
+                enc_prefix = self.tokenizer.encode(prefix, add_special_tokens=False)
+                if len(enc_prefix) != 1:
+                    self.start_prefix_ids.append(None)
+                else:
+                    self.start_prefix_ids.append(enc_prefix[0])
+                assert any(self.start_prefix_ids), f"The prefix {prefix!r} should be a single token for at least one of the prefixes {self.START_PREFIXES!r}"
         else:
             assert (
                 self.vocab_i2s[tokens_no_space[0]][0] == "t"
@@ -105,11 +106,15 @@ class TokenizerAnalyzer:
 
     def clean_encode(self, s) -> list[int]:
         if self.starting_space_mode:
-            s = self.START_PREFIX + s
-            tokens = self.tokenizer.encode(s, add_special_tokens=False)
-            assert (
-                tokens[0] == self.start_prefix_id
-            ), f"The first token should be the prefix {self.start_prefix_id} for {s!r} but found {tokens}"
+            for prefix_id, prefix in zip(self.start_prefix_ids, self.START_PREFIXES):
+                if prefix_id is None:
+                    continue
+                s = prefix + s
+                tokens = self.tokenizer.encode(s, add_special_tokens=False)
+                if tokens[0] == prefix_id:
+                    break
+            else:
+                raise AssertionError(f"The first token should be the prefix for one of {self.START_PREFIXES!r} for {s!r} but found {tokens}")
             tokens = tokens[1:]
         else:
             tokens = self.tokenizer.encode(s, add_special_tokens=False)
@@ -117,14 +122,16 @@ class TokenizerAnalyzer:
 
     def clean_decode(self, tokens):
         if self.starting_space_mode:  # this prevents the tokenizer from dropping the starting space when it exists
-            tokens = [self.start_prefix_id] + tokens
-            decoded = self.tokenizer.decode(tokens, skip_special_tokens=False)
-            if decoded[0] == " ":  # e.g. mistral, but not llama2
-                decoded = decoded[1:]
-            assert decoded.startswith(
-                self.START_PREFIX
-            ), f"The decoded string {decoded!r} should start with the prefix for {tokens!r}"
-            return decoded[1:]
+            for prefix_id, prefix in zip(self.start_prefix_ids, self.START_PREFIXES):
+                if prefix_id is None:
+                    continue
+                tokens = [prefix_id] + tokens
+                decoded = self.tokenizer.decode(tokens, skip_special_tokens=False)
+                if decoded[0] == " ":  # e.g. mistral, but not llama2
+                    decoded = decoded[1:]
+                if decoded.startswith(prefix):
+                    return decoded[1:]
+            raise AssertionError(f"The decoded string {decoded!r} should start with the prefix for one of {self.START_PREFIXES!r}")
         else:
             return self.tokenizer.decode(tokens, skip_special_tokens=False)
 

@@ -17,11 +17,9 @@
   * Indicator for under-trained tokens: E_{in} L2 Norm
   * Overall distribution: 0.588 +/- 0.113
 * Detected Token Counts: 
-  * Number of tested under-trained tokens: 492, 396 non-special, 3 below p = 0.01 threshold, 11 below soft indicator threshold
+  * Number of tested under-trained tokens: 1280, 1176 non-special, 3 below p = 0.01 threshold, 11 below soft indicator threshold
   * Number of single byte tokens: 355, of which 113 below indicator threshold
-  * Number of special tokens: 39410, of which 0 below indicator threshold
-  * Number of non-single-byte unreachable tokens: 39410, of which 0 below indicator threshold
-  * Number of non-single-byte UTF-fragment tokens:  1, of which 0 below soft indicator threshold
+  * Number of special tokens: 0, of which 0 below indicator threshold
 
 ## Under-trained token indicators plot
 ![Indicators scatter plots](../indicators_pairplot_byid/ai21labs_AI21_Jamba_1_5_Mini.png)
@@ -30,7 +28,7 @@
 ![Verification plot](../verifications_scatterplot/ai21labs_AI21_Jamba_1_5_Mini.png)
 
 ## Under-trained token verification results
-11 entries below threshold of 0.218
+11 entries below threshold of 0.140
 
 |   token_id | token                    |   indicator | max_prob                                                         | in_other_tokens                                                               |
 |------------|--------------------------|-------------|------------------------------------------------------------------|-------------------------------------------------------------------------------|
@@ -40,17 +38,11 @@
 |      59180 | ````` .*]{} `````        |  0.0557112  | <span style='border: 1px solid rgb(40, 167, 69);'>0.11</span>    |                                                                               |
 |      33631 | ````` .\xa0\[ `````      |  0.0570433  | <span style='border: 1px solid rgb(251, 189, 8);'>0.01</span>    |                                                                               |
 |      58810 | ````` ronicsystems ````` |  0.0570511  | <span style='border: 1px solid rgb(169, 68, 66);'>1.1e-07</span> |                                                                               |
+|      57848 | ````` ▁cppVar `````      |  0.103601   | <span style='border: 1px solid rgb(40, 167, 69);'>1</span>       |                                                                               |
 |      46222 | ````` derrel `````       |  0.117093   | <span style='border: 1px solid rgb(40, 167, 69);'>1</span>       | <span style='border: 1px solid rgb(169, 68, 66);'>````` derrelsc `````</span> |
 |      45270 | ````` =\u200a `````      |  0.118303   | <span style='border: 1px solid rgb(40, 167, 69);'>0.27</span>    | ````` \u200a=\u200a `````                                                     |
 |      65490 | ````` ≎ `````            |  0.121283   | <span style='border: 1px solid rgb(40, 167, 69);'>1</span>       |                                                                               |
 |      24430 | ````` **]{} `````        |  0.12206    | <span style='border: 1px solid rgb(40, 167, 69);'>0.53</span>    |                                                                               |
-|      25552 | ````` *]{} `````         |  0.140371   | <span style='border: 1px solid rgb(40, 167, 69);'>0.79</span>    | <span style='border: 1px solid rgb(40, 167, 69);'>````` .*]{} `````</span>    |
-
-
-## Tokens with partial UTF-8 sequences
-0 entries below threshold of 0.218
-
-
 
 
 ## Byte tokens
@@ -1714,10 +1706,4 @@
 |       1472 | ````` <\|reserved_956\|> `````  | 2.91508e-07 |                                                                  |
 |          0 | ````` <\|pad\|> `````           | 0.00672335  | <span style='border: 1px solid rgb(169, 68, 66);'>1.3e-09</span> |
 </details>
-
-
-## Unreachable tokens
-0 entries below threshold of 0.010
-
-
 

@@ -97,6 +97,7 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "m-a-p/neo_7b" --trust-remote-code
             python magikarp/fishing.py --model_id "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct" --trust-remote-code
             python magikarp/fishing.py --model_id "internlm/internlm2_5-7b-chat" --trust-remote-code
+            python magikarp/fishing.py --model_id "utter-project/EuroLLM-1.7B"
             ;;
         "reports")
             python generate_results.py

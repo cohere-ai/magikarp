@@ -11,8 +11,8 @@
   * Tokenizer Class: LlamaTokenizer
   * Tokenizer Type: BPE
   * Bytes handling: Byte Fallback
-  * Token for verification prompt building: springframework
-  * Token id for verification prompt building: 6688
+  * Token for verification prompt building: includegraphics
+  * Token id for verification prompt building: 7313
 * Indicator summary: 
   * Indicator for under-trained tokens: E_{in} L2 Norm
   * Overall distribution: 1.806 +/- 0.288
@@ -86,7 +86,7 @@
 |      23715 | ````` ▁Källor `````        |   0.157608  | <span style='border: 1px solid rgb(169, 68, 66);'>4.5e-05</span> |                                                                                                                                                                                                                                                     |
 |      20739 | ````` ▁надмор `````        |   0.15797   | <span style='border: 1px solid rgb(169, 68, 66);'>1.2e-05</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁надморској `````</span>                                                                                                                                                                    |
 |      11229 | ````` ▁становника `````    |   0.162022  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00011</span> |                                                                                                                                                                                                                                                     |
-|      12731 | ````` ederbörd `````       |   0.175326  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0018</span>  | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁årsnederbörd `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` nederbörd `````</span>, <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁nederbörd `````</span> |
+|      12731 | ````` ederbörd `````       |   0.175326  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0018</span>  | <span style='border: 1px solid rgb(169, 68, 66);'>````` ▁årsnederbörd `````</span>, <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁nederbörd `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` nederbörd `````</span> |
 |      18044 | ````` ▁Становништво `````  |   0.179037  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0012</span>  |                                                                                                                                                                                                                                                     |
 |       7718 | ````` ▁beskrevs `````      |   0.182743  | <span style='border: 1px solid rgb(169, 68, 66);'>4.3e-05</span> |                                                                                                                                                                                                                                                     |
 |      19837 | ````` ▁Населення `````     |   0.184407  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> |                                                                                                                                                                                                                                                     |
@@ -253,10 +253,10 @@
 |   token_id | token                           |   indicator | max_prob                                                         |
 |------------|---------------------------------|-------------|------------------------------------------------------------------|
 |      32011 | ````` <\|placeholder7\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
-|      32015 | ````` <\|placeholder11\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32013 | ````` <\|placeholder9\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
-|      32012 | ````` <\|placeholder8\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
+|      32015 | ````` <\|placeholder11\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32014 | ````` <\|placeholder10\|> ````` |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
+|      32012 | ````` <\|placeholder8\|> `````  |  0          | <span style='border: 1px solid rgb(169, 68, 66);'>7.5e-06</span> |
 |      32002 | ````` <\|placeholder1\|> `````  |  0.00518204 | <span style='border: 1px solid rgb(169, 68, 66);'>4e-06</span>   |
 |      32004 | ````` <\|placeholder3\|> `````  |  0.00563358 | <span style='border: 1px solid rgb(169, 68, 66);'>5.8e-06</span> |
 |      32008 | ````` <\|placeholder5\|> `````  |  0.00710075 | <span style='border: 1px solid rgb(169, 68, 66);'>9.4e-06</span> |

@@ -227,19 +227,19 @@ VerificationResult = namedtuple(
 )
 
 
-def get_verified_candidates(token_infos):
+def get_verified_candidates(toka, token_infos):
     verification_candidates, verification_cand_threshold = candidates_for_verification(token_infos)
     if not all("max_prob" in c for c in verification_candidates):
         n_total = len(verification_candidates)
         verification_candidates = [c for c in verification_candidates if "max_prob" in c]
         print(
-            f"❗ WARNING: verification step not completed, loaded {len(verification_candidates)} out of {n_total} candidates"
+            f"❗ WARNING: verification step not completed for {toka.model_id}, loaded {len(verification_candidates)} out of {n_total} candidates"
         )
     return verification_candidates, verification_cand_threshold
 
 
 def categorize_token_infos(toka, token_infos):
-    verification_candidates, verification_cand_threshold = get_verified_candidates(token_infos)
+    verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos)
     for t in verification_candidates:
         t["readable_vocab"] = toka.vocab_to_readable_string(t["i"])
     single_byte_vocab = find_byte_tokens(toka, token_infos)

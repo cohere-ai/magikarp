@@ -17,7 +17,7 @@
   * Indicator for under-trained tokens: E_{in} L2 Norm
   * Overall distribution: 0.172 +/- 0.020
 * Detected Token Counts: 
-  * Number of tested under-trained tokens: 637, 529 non-special, 28 below p = 0.01 threshold, 16 below soft indicator threshold
+  * Number of tested under-trained tokens: 637, 529 non-special, 28 below p = 0.01 threshold, 17 below soft indicator threshold
   * Number of single byte tokens: 380, of which 143 below indicator threshold
   * Number of special tokens: 0, of which 0 below indicator threshold
 
@@ -28,26 +28,27 @@
 ![Verification plot](../verifications_scatterplot/mistralai_Mistral_7B_Instruct_v0_2.png)
 
 ## Under-trained token verification results
-16 entries below threshold of 0.015
+17 entries below threshold of 0.015
 
 |   token_id | token              |   indicator | max_prob                                                         | in_other_tokens                                                             |
 |------------|--------------------|-------------|------------------------------------------------------------------|-----------------------------------------------------------------------------|
-|      31738 | ````` \uefc0 ````` |  0.0023863  | <span style='border: 1px solid rgb(169, 68, 66);'>8.3e-05</span> |                                                                             |
-|      20418 | ````` ▁/**\r ````` |  0.00689903 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0031</span>  |                                                                             |
-|      26083 | ````` ▁//\r `````  |  0.00719365 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00057</span> |                                                                             |
-|      25833 | ````` >?[< `````   |  0.0075466  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00089</span> |                                                                             |
-|       9823 | ````` */\r `````   |  0.0089834  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0015</span>  |                                                                             |
-|      31363 | ````` \x85 `````   |  0.0101242  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00018</span> |                                                                             |
-|      26636 | ````` });\r `````  |  0.0108428  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0071</span>  |                                                                             |
-|      26407 | ````` };\r `````   |  0.0116664  | <span style='border: 1px solid rgb(251, 189, 8);'>0.011</span>   |                                                                             |
-|      18759 | ````` ';\r `````   |  0.0119077  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0061</span>  |                                                                             |
-|      14756 | ````` /**\r `````  |  0.0125281  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0023</span>  | <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁/**\r `````</span> |
-|      12193 | ````` ▁);\r `````  |  0.0133504  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0018</span>  |                                                                             |
+|      31738 | ````` \uefc0 ````` |  0.0023863  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                             |
+|      20418 | ````` ▁/**\r ````` |  0.00689903 | <span style='border: 1px solid rgb(255, 145, 0);'>0.0028</span>  |                                                                             |
+|      26083 | ````` ▁//\r `````  |  0.00719365 | <span style='border: 1px solid rgb(169, 68, 66);'>0.00059</span> |                                                                             |
+|      25833 | ````` >?[< `````   |  0.0075466  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00052</span> |                                                                             |
+|       9823 | ````` */\r `````   |  0.0089834  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0011</span>  |                                                                             |
+|      31363 | ````` \x85 `````   |  0.0101242  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00033</span> |                                                                             |
+|      26636 | ````` });\r `````  |  0.0108428  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0054</span>  |                                                                             |
+|      26407 | ````` };\r `````   |  0.0116664  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0077</span>  |                                                                             |
+|      18759 | ````` ';\r `````   |  0.0119077  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0055</span>  |                                                                             |
+|      14756 | ````` /**\r `````  |  0.0125281  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0025</span>  | <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁/**\r `````</span> |
+|      12193 | ````` ▁);\r `````  |  0.0133504  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0017</span>  |                                                                             |
 |      26392 | ````` ▁});\r ````` |  0.0134211  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0014</span>  |                                                                             |
-|       7608 | ````` ▁*/\r `````  |  0.0135035  | <span style='border: 1px solid rgb(251, 189, 8);'>0.02</span>    |                                                                             |
-|      23139 | ````` ▁};\r `````  |  0.0136007  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0065</span>  |                                                                             |
-|      30929 | ````` ᥀ `````      |  0.0137812  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00014</span> |                                                                             |
-|      28171 | ````` ]);\r `````  |  0.0140675  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0087</span>  |                                                                             |
+|       7608 | ````` ▁*/\r `````  |  0.0135035  | <span style='border: 1px solid rgb(251, 189, 8);'>0.019</span>   |                                                                             |
+|      23139 | ````` ▁};\r `````  |  0.0136007  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0048</span>  |                                                                             |
+|      30929 | ````` ᥀ `````      |  0.0137812  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00015</span> |                                                                             |
+|      28171 | ````` ]);\r `````  |  0.0140675  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0092</span>  |                                                                             |
+|      15056 | ````` ());\r ````` |  0.0146594  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0032</span>  |                                                                             |
 
 
 ## Byte tokens

@@ -75,7 +75,6 @@ def group_key(x):
 
 
 models = list(UNUSED_TOKENS.keys())
-models = [m for m in models if "SOLAR" in m]
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
     model_infos_all = list(executor.map(process_model, models))

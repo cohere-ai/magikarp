@@ -76,7 +76,7 @@ class TokenizerAnalyzer:
 
     def _set_flags(self):
         # check if the tokenizer uses GPT-2 style byte encoding
-        self.gpt2_style_byte_encoding =  (
+        self.gpt2_style_byte_encoding = (
             sum(v.startswith("Ġ") for v in self.vocab_i2s.values()) > len(self.vocab_i2s) / 10
         )
 

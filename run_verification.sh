@@ -72,6 +72,11 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "stabilityai/stablelm-2-12b" --trust-remote-code # missing weights if not trust remote
             python magikarp/fishing.py --model_id "mistralai/Mistral-Nemo-Base-2407" --threshold_ratio 5
             ;;
+        "allenai")
+            python magikarp/fishing.py --model_id "allenai/Llama-3.1-Tulu-3-8B"
+            python magikarp/fishing.py --model_id  "allenai/OLMo-2-1124-7B" --indicator_ix 1
+            python magikarp/fishing.py --model_id  "allenai/OLMo-2-1124-13B" --indicator_ix 1
+            ;;
         "deepseek")
             python magikarp/fishing.py --model_id  "deepseek-ai/deepseek-llm-7b-base"
             python magikarp/fishing.py --model_id  "deepseek-ai/deepseek-math-7b-base"

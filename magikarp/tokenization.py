@@ -20,6 +20,7 @@ def model_needs_fast_tokenizer(model_id):
         or "OLMo" in model_id
         or "Mistral-Nemo" in model_id
         or "solar-pro-preview" in model_id
+        or 'ibm-granite/' in model_id
     )
 
 
@@ -55,7 +56,7 @@ class TokenizerAnalyzer:
             self.tokenizer.pad_token_id = eos_token_id
 
         self.model_id = model_id
-        self.vocab_s2i = self.tokenizer.get_vocab()
+        self.vocab_s2i = {k: v for k, v in self.tokenizer.get_vocab().items()}
         self.vocab_i2s = {v: k for k, v in self.vocab_s2i.items()}
 
         self.special_token_ids = getattr(self.tokenizer, "additional_special_tokens_ids", None) or []
@@ -75,7 +76,7 @@ class TokenizerAnalyzer:
 
     def _set_flags(self):
         # check if the tokenizer uses GPT-2 style byte encoding
-        self.gpt2_style_byte_encoding = (
+        self.gpt2_style_byte_encoding =  (
             sum(v.startswith("Ġ") for v in self.vocab_i2s.values()) > len(self.vocab_i2s) / 10
         )
 

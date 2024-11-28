@@ -97,7 +97,7 @@ with open("results/summary.md", "w") as f:
     )
     f.write(f"Processed {len(model_infos_all)} models, {len(model_infos)} succeeded")
     if failed:
-        f.write(f"{len(failed)} failed: {failed}\n")
+        f.write(f", {len(failed)} failed: {failed}\n")
 
 print(tabulate.tabulate([format_info(i, target="latex") for i in model_infos], headers="keys", tablefmt="github"))
 

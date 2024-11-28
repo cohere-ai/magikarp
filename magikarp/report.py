@@ -28,7 +28,7 @@ def plot_xylabel(s):
 
 
 def hardcoded_indicator_ix(model_id):  # yes this is bad
-    indicator_ix = 1 if model_id in ["allenai/OLMo-7B-hf"] else 0
+    indicator_ix = 1 if any(s in model_id for s in ["allenai/OLMo-7B-hf", "allenai/OLMo-2"])  else 0
     return indicator_ix
 
 

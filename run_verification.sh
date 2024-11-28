@@ -67,10 +67,16 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "Qwen/Qwen1.5-72B-Chat"
             python magikarp/fishing.py --model_id "Qwen/Qwen2-57B-A14B"
             python magikarp/fishing.py --model_id "Qwen/Qwen2.5-32B-Instruct"
+            python magikarp/fishing.py --model_id "Qwen/Qwen2.5-7B"
             ;;
         "tiktoken")
             python magikarp/fishing.py --model_id "stabilityai/stablelm-2-12b" --trust-remote-code # missing weights if not trust remote
             python magikarp/fishing.py --model_id "mistralai/Mistral-Nemo-Base-2407" --threshold_ratio 5
+            ;;
+        "allenai")
+            python magikarp/fishing.py --model_id "allenai/Llama-3.1-Tulu-3-8B"
+            python magikarp/fishing.py --model_id  "allenai/OLMo-2-1124-7B" --indicator_ix 1
+            python magikarp/fishing.py --model_id  "allenai/OLMo-2-1124-13B" --indicator_ix 1
             ;;
         "deepseek")
             python magikarp/fishing.py --model_id  "deepseek-ai/deepseek-llm-7b-base"
@@ -94,6 +100,7 @@ for arg in "$@"; do
             ;;
         "misc")
             python magikarp/fishing.py --model_id "bigcode/starcoder2-15b"
+            python magikarp/fishing.py --model_id "ibm-granite/granite-3.0-8b-base"
             python magikarp/fishing.py --model_id "m-a-p/neo_7b" --trust-remote-code
             python magikarp/fishing.py --model_id "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct" --trust-remote-code
             python magikarp/fishing.py --model_id "internlm/internlm2_5-7b-chat" --trust-remote-code

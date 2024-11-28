@@ -74,12 +74,17 @@ UNUSED_TOKENS = {
     "Qwen/Qwen1.5-32B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen2-57B-A14B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen2.5-32B-Instruct": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen2.5-7B": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen2.5-7B-Instruct": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3.1-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-70B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3.1-70B": TIKTOKEN_UNUSED_TOKENS,
     "internlm/internlm2_5-7b-chat": TIKTOKEN_UNUSED_TOKENS,
+    "allenai/Llama-3.1-Tulu-3-8B": TIKTOKEN_UNUSED_TOKENS,
+    "allenai/OLMo-2-1124-7B": TIKTOKEN_UNUSED_TOKENS,
+    "allenai/OLMo-2-1124-13B": TIKTOKEN_UNUSED_TOKENS,
     "mistralai/Mistral-Nemo-Base-2407": np.arange(1245, 1256),  # f5-ff
     # deepseek
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
@@ -101,4 +106,5 @@ UNUSED_TOKENS = {
     "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
     "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
     "utter-project/EuroLLM-1.7B": np.arange(5, 260),  # extra
+    "ibm-granite/granite-3.0-8b-base": STARCODER2_UNUSED_TOKENS,
 }

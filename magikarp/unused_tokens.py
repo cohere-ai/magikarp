@@ -99,12 +99,16 @@ UNUSED_TOKENS = {
     # unigram
     "Fugaku-LLM/Fugaku-LLM-13B": FUGAKU_UNUSED_TOKENS,
     "facebook/xglm-7.5B": np.arange(256001, 256008),  # <madeupword>
+    # exaone
+    "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
+    "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct": np.arange(100, 150),  # unused ...
     # others
     "bigcode/starcoder2-15b": STARCODER2_UNUSED_TOKENS,
     "ai21labs/Jamba-v0.1": JAMBA_UNUSED_TOKENS,
     "ai21labs/AI21-Jamba-1.5-Mini": JAMBA_UNUSED_TOKENS,
     "m-a-p/neo_7b": MAP_NEO_UNUSED_TOKENS,
-    "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct": np.arange(100, 150),  # unused ...
     "utter-project/EuroLLM-1.7B": np.arange(5, 260),  # extra
+    "utter-project/EuroLLM-9B": np.arange(5, 260),  # extra
     "ibm-granite/granite-3.0-8b-base": STARCODER2_UNUSED_TOKENS,
+    "PleIAs/Pleias-1.2b-Preview": [33234], # NdEx  [1], # begin_of_text
 }

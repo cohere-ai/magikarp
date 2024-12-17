@@ -212,11 +212,12 @@ def find_special_tokens(token_infos: dict[int, dict]) -> dict[int, dict]:
     special_tokens = {
         i: ti
         for i, ti in token_infos.items()
-        if len(ti["raw_vocab"]) >= 3
+        if (len(ti["raw_vocab"]) >= 3
         and ti["raw_vocab"][0] in "[<"
         and ti["raw_vocab"][-1] in "]>"
         and any(c.isalpha() and ord(c) < 128 for c in ti["raw_vocab"])
-        and not ti["raw_vocab"].startswith("<0x")
+        and not ti["raw_vocab"].startswith("<0x"))
+        or ti["raw_vocab"].startswith(">>UNUSED") # for falcon3
     }
     return special_tokens
 

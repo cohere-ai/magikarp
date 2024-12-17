@@ -111,4 +111,5 @@ UNUSED_TOKENS = {
     "utter-project/EuroLLM-9B": np.arange(5, 260),  # extra
     "ibm-granite/granite-3.0-8b-base": STARCODER2_UNUSED_TOKENS,
     "PleIAs/Pleias-1.2b-Preview": [33234], # NdEx  [1], # begin_of_text
+    "tiiuae/Falcon3-7B-Base": [1958], # random unused
 }

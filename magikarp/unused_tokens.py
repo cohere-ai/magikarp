@@ -86,6 +86,7 @@ UNUSED_TOKENS = {
     "allenai/OLMo-2-1124-7B": TIKTOKEN_UNUSED_TOKENS,
     "allenai/OLMo-2-1124-13B": TIKTOKEN_UNUSED_TOKENS,
     "mistralai/Mistral-Nemo-Base-2407": np.arange(1245, 1256),  # f5-ff
+    "microsoft/phi-4": TIKTOKEN_UNUSED_TOKENS,
     # deepseek
     "deepseek-ai/deepseek-llm-7b-base": DEEPSEEK_LANG_UNUSED_TOKENS,
     "deepseek-ai/deepseek-coder-33b-base": DEEPSEEK_CODE_UNUSED_TOKENS,

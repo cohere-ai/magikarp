@@ -94,6 +94,14 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "ai21labs/Jamba-v0.1" --trust_remote_code
             python magikarp/fishing.py --model_id "ai21labs/AI21-Jamba-1.5-Mini" --trust-remote-code
             ;;
+        "exaone")
+            python magikarp/fishing.py --model_id "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct" --trust-remote-code
+            python magikarp/fishing.py --model_id "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct" --trust-remote-code
+            ;;
+        "eurollm")
+            python magikarp/fishing.py --model_id "utter-project/EuroLLM-1.7B"
+            python magikarp/fishing.py --model_id "utter-project/EuroLLM-9B"
+            ;;
         "unigram")
             python magikarp/fishing.py --model_id "Fugaku-LLM/Fugaku-LLM-13B"
             python magikarp/fishing.py --model_id "facebook/xglm-7.5B"
@@ -102,9 +110,8 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "bigcode/starcoder2-15b"
             python magikarp/fishing.py --model_id "ibm-granite/granite-3.0-8b-base"
             python magikarp/fishing.py --model_id "m-a-p/neo_7b" --trust-remote-code
-            python magikarp/fishing.py --model_id "LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct" --trust-remote-code
             python magikarp/fishing.py --model_id "internlm/internlm2_5-7b-chat" --trust-remote-code
-            python magikarp/fishing.py --model_id "utter-project/EuroLLM-1.7B"
+            python magikarp/fishing.py --model_id "PleIAs/Pleias-1.2b-Preview"
             ;;
         "reports")
             python generate_results.py

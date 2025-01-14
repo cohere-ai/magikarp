@@ -113,4 +113,5 @@ UNUSED_TOKENS = {
     "ibm-granite/granite-3.0-8b-base": STARCODER2_UNUSED_TOKENS,
     "PleIAs/Pleias-1.2b-Preview": [33234], # NdEx  [1], # begin_of_text
     "tiiuae/Falcon3-7B-Base": [1958], # random unused
+    "kyutai/helium-1-preview-2b": np.arange(351,361), # unused utf8 fallback
 }

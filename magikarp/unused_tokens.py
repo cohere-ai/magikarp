@@ -34,6 +34,7 @@ UNUSED_TOKENS = {
     "google/gemma-7b": GEMMA_UNUSED_TOKENS,
     "google/gemma-2b": GEMMA_UNUSED_TOKENS,
     "google/codegemma-7b": GEMMA_UNUSED_TOKENS,
+    "google/gemma-3-12b-it": np.arange(483, 494),  # unused 245-255 fallback
     # gpt2 variants
     "openai-community/gpt2": GPT2_UNUSED_TOKENS,
     "openai-community/gpt2-medium": GPT2_UNUSED_TOKENS,

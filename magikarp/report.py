@@ -218,12 +218,12 @@ def make_tokens_table(
 # --- main report
 
 
-def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hires=False):
+def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, threshold_ratio, save_hires=False, default_threshold=1.0):
     indicator_names, undertrained_token_indicators = get_indicators(moda, token_infos)
 
     # Get model and tokenizer info
     info = get_model_and_tokenizer_info(model_id, toka, token_infos)
-    categorized_tokens = categorize_token_infos(toka, token_infos)
+    categorized_tokens = categorize_token_infos(toka, token_infos, threshold_ratio=threshold_ratio)
 
     # plot verifications first, so we can look at them even if we don't have a threshold
     _, verification_filename = verification_plot(
@@ -257,8 +257,8 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hir
             c["main_indicator"] for c in categorized_tokens.candidates_nosb if c["max_prob"] < p_verify_threshold
         ]
     else:
-        print("No candidates, setting candidates_threshold=1")
-        candidates_threshold = 1
+        print(f"No candidates, setting candidates_threshold={default_threshold}")
+        candidates_threshold = default_threshold
         cand_below_threshold = []
 
     if cand_below_threshold:

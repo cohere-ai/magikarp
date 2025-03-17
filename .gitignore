@@ -1,4 +1,6 @@
 
+# weights
+*.safetensors
 
 # verification results are commited only in jsonl.gz
 results/verifications/*.jsonl

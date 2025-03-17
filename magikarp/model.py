@@ -1,9 +1,9 @@
-import functools
+import torch
 from typing import Optional
 
 import numpy as np
 from torch.nn import Embedding
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoConfig
 
 from magikarp.utils import embedding_distance_metrics
 
@@ -15,45 +15,61 @@ class ModelAnalyzer:
         known_unused_tokens: Optional[list[int]] = None,
         trust_remote_code: bool = False,
         vocab_size_lb: int = 0,
+        embeddings = None, 
     ):
         """Analyze a model for unused tokens.
         * model_id: The model id to analyze
         * known_unused_tokens: A list of token ids that are known to be unused in the model
         * trust_remote_code: Whether to trust the remote model code for huggingface
         * vocab_size_lb: The lower bound for the vocabulary size, in case the model has multiple embedding modules
+        * embeddings: alternative mode to only load embeddings
         """
-        xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=trust_remote_code, **xargs)
-        self.tied_embeddings = self.model.config.tie_word_embeddings
-        l = [
-            module
-            for module in self.model.modules()
-            if isinstance(module, Embedding) and module.weight.shape[0] >= vocab_size_lb
-        ]
-        assert len(l) == 1, f"Expected 1 Embedding module with dimension >= {vocab_size_lb}, but found {len(l)}: {l}"
-        self.embeddings = l[0].weight.detach().numpy()
-        if hasattr(self.model, "lm_head"):
-            lm_head = self.model.lm_head
-        elif hasattr(self.model, "embed_out"):  # NeoX
-            lm_head = self.model.embed_out
-        elif hasattr(self.model, "model") and hasattr(self.model.model, "transformer"):
-            lm_head = self.model.model.transformer.ff_out  # OLMo
-            self.tied_embeddings = False  # OLMo config uses own convention (weight_tying)
-        elif hasattr(self.model, "output"):
-            lm_head = self.model.output
-            self.tied_embeddings = False
-        else:
-            raise AttributeError("Could not find the language modelling head in the model")
+        if model_id is not None:
+            xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
 
-        self.output_embeddings = lm_head.weight.detach().numpy()
-        self.output_embeddings_has_bias = (
-            lm_head.bias is not None and np.linalg.norm(lm_head.bias.detach().numpy()) > 1e-3
-        )
-        if self.output_embeddings_has_bias:
-            print(
-                f"Unexpectedly found bias in the final layer, this is may reduce effectiveness of under-trainedness indicators in ways that is out of scope of this code, especially if tied_embeddings is True (it is {self.tied_embeddings}) or output embedding based indicators are needed otherwise."
+            config = AutoConfig.from_pretrained(model_id) # gemmaaaaaaaaahhhh
+            for key, value in vars(config.text_config).items():
+                setattr(config, key, value)
+
+            self.model = AutoModelForCausalLM.from_pretrained(model_id, config=config, trust_remote_code=trust_remote_code, **xargs)
+            self.tied_embeddings = self.model.config.tie_word_embeddings
+            l = [
+                module
+                for module in self.model.modules()
+                if isinstance(module, Embedding) and module.weight.shape[0] >= vocab_size_lb
+            ]
+            assert len(l) == 1, f"Expected 1 Embedding module with dimension >= {vocab_size_lb}, but found {len(l)}: {l}"
+            self.embeddings = l[0].weight.detach().numpy()
+            if hasattr(self.model, "lm_head"):
+                lm_head = self.model.lm_head
+            elif hasattr(self.model, "embed_out"):  # NeoX
+                lm_head = self.model.embed_out
+            elif hasattr(self.model, "model") and hasattr(self.model.model, "transformer"):
+                lm_head = self.model.model.transformer.ff_out  # OLMo
+                self.tied_embeddings = False  # OLMo config uses own convention (weight_tying)
+            elif hasattr(self.model, "output"):
+                lm_head = self.model.output
+                self.tied_embeddings = False
+            else:
+                raise AttributeError("Could not find the language modelling head in the model")
+
+            self.output_embeddings = lm_head.weight.detach().numpy()
+            self.output_embeddings_has_bias = (
+                lm_head.bias is not None and np.linalg.norm(lm_head.bias.detach().numpy()) > 1e-3
             )
-            self.output_embeddings_bias = lm_head.bias.detach().numpy()
+            if self.output_embeddings_has_bias:
+                print(
+                    f"Unexpectedly found bias in the final layer, this is may reduce effectiveness of under-trainedness indicators in ways that is out of scope of this code, especially if tied_embeddings is True (it is {self.tied_embeddings}) or output embedding based indicators are needed otherwise."
+                )
+                self.output_embeddings_bias = lm_head.bias.detach().numpy()
+        elif embeddings is not None:
+            self.tied_embeddings = False
+            self.embeddings = embeddings.weight.to(dtype=torch.float32).numpy()
+            self.output_embeddings = None
+            self.output_embeddings_has_bias = False
+            self.model = None
+        else:
+            raise ValueError("Require model id or embeddings")
         self.known_unused_tokens = [] if known_unused_tokens is None else known_unused_tokens
         self.calculate_unused_token_metric()
 
@@ -83,7 +99,7 @@ class ModelAnalyzer:
             raise ValueError("known_unused_tokens must be provided for tied embeddings")
         else:
             self.indicator_names = []
-            self.undertrained_token_indicators = np.zeros((self.output_embeddings.shape[0], 0))  # make concat happy
+            self.undertrained_token_indicators = np.zeros((self.embeddings.shape[0], 0))  # make concat happy
 
         if self.output_embeddings_has_bias:
             self.indicator_names += [self.INDICATOR_EOUT_BIAS_NAME]

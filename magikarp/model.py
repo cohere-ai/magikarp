@@ -27,9 +27,10 @@ class ModelAnalyzer:
         if model_id is not None:
             xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
 
-            config = AutoConfig.from_pretrained(model_id) # gemmaaaaaaaaahhhh
-            for key, value in vars(config.text_config).items():
-                setattr(config, key, value)
+            config = AutoConfig.from_pretrained(model_id)
+            if 'gemma-3' in model_id:  # gemmaaaaaaaaahhhh
+                for key, value in vars(config.text_config).items():
+                    setattr(config, key, value)
 
             self.model = AutoModelForCausalLM.from_pretrained(model_id, config=config, trust_remote_code=trust_remote_code, **xargs)
             self.tied_embeddings = self.model.config.tie_word_embeddings

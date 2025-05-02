@@ -21,6 +21,8 @@ def model_needs_fast_tokenizer(model_id):
         or "Mistral-Nemo" in model_id
         or "solar-pro-preview" in model_id
         or 'ibm-granite/' in model_id
+        or 'trillionlabs/' in model_id
+        or 'Llama-4' in model_id
     )
 
 
@@ -48,6 +50,8 @@ class TokenizerAnalyzer:
             clean_up_tokenization_spaces=False,
             trust_remote_code=trust_remote_code,
         )
+        if not self.tokenizer:
+            raise ValueError(f"Tokenizer for {model_id} not found, maybe requires use_fast?")
         if getattr(self.tokenizer, "pad_token", None) is None:
             eos_token_id = getattr(self.tokenizer, "eos_token_id", None)
             print(

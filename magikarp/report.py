@@ -315,7 +315,7 @@ def make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, threshol
         info["Detected Token Counts"] = {
             "Number of tested under-trained tokens": f"{len(categorized_tokens.candidates)}, {len(categorized_tokens.candidates_nosb)} non-special, {sum(verifications_below_threshold)} below p = {p_verify_threshold} threshold, {n_magikarps_below_thr} below soft indicator threshold",
             "Number of single byte tokens": f"{len(categorized_tokens.bytes)}, of which {n_bytes_below_thr} below indicator threshold",
-            "Number of special tokens": f"{len(categorized_tokens.unreachables)}, of which {n_unreachable_below_thr} below indicator threshold",
+            "Number of special tokens": f"{len(categorized_tokens.specials)}, of which {n_special_below_thr} below indicator threshold",
         }
         if categorized_tokens.unreachables:
             info["Detected Token Counts"][

@@ -27,7 +27,7 @@ class ModelAnalyzer:
         if model_id is not None:
             xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
 
-            config = AutoConfig.from_pretrained(model_id)
+            config = AutoConfig.from_pretrained(model_id,trust_remote_code=trust_remote_code)
             if 'gemma-3' in model_id:  # gemmaaaaaaaaahhhh
                 for key, value in vars(config.text_config).items():
                     setattr(config, key, value)

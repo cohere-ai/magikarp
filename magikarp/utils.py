@@ -239,7 +239,7 @@ def get_verified_candidates(toka, token_infos, threshold_ratio):
     return verification_candidates, verification_cand_threshold
 
 
-def categorize_token_infos(toka, token_infos, threshold_ratio):
+def categorize_token_infos(toka, token_infos, threshold_ratio=2):
     verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos, threshold_ratio=threshold_ratio)
     for t in verification_candidates:
         t["readable_vocab"] = toka.vocab_to_readable_string(t["i"])

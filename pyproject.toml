@@ -1,6 +1,6 @@
 [project]
 name = "magikarp"
-version = "0.2.1"
+version = "0.2.2"
 description = "Code for the paper 'Fishing for Magikarp: Automatically detecting under-trained tokens in large language models'"
 authors = [
     {name = "Sander Land", email = "sander@cohere.com"},

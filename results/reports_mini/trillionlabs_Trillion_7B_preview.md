@@ -52,7 +52,7 @@
 |     126871 | ````` EPARCHY `````              | 0.077815    | <span style='border: 1px solid rgb(169, 68, 66);'>0.00037</span> |                                                                                                                                                                                                  |
 |     121899 | ````` UniWebView `````           | 0.0832953   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00055</span> |                                                                                                                                                                                                  |
 |     112359 | ````` 3171604 `````              | 0.0846215   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00069</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` 3171604670 `````</span>                                                                                                                  |
-|      46042 | ````` 피캠퍼스는 `````           | 0.0858762   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> | ````` ▁해피캠퍼스는 `````, ````` 해피캠퍼스는 `````                                                                                                                                              |
+|      46042 | ````` 피캠퍼스는 `````           | 0.0858762   | <span style='border: 1px solid rgb(169, 68, 66);'>0.00012</span> | ````` 해피캠퍼스는 `````, ````` ▁해피캠퍼스는 `````                                                                                                                                              |
 <details><summary>9 additional entries below threshold</summary>
 
 |   token_id | token                      |   indicator | max_prob                                                         | in_other_tokens                                                                                                                                                                                  |
@@ -62,7 +62,7 @@
 |     101093 | ````` Discnt `````         |   0.122205  | <span style='border: 1px solid rgb(251, 189, 8);'>0.018</span>   |                                                                                                                                                                                                  |
 |      88953 | ````` WINPR `````          |   0.122498  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0015</span>  |                                                                                                                                                                                                  |
 |      74883 | ````` StackTraits `````    |   0.125034  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00016</span> |                                                                                                                                                                                                  |
-|      54544 | ````` 引用できません ````` |   0.141043  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00045</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` のため引用できません `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` 限定公開記事のため引用できません `````</span> |
+|      54544 | ````` 引用できません ````` |   0.141043  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00045</span> | <span style='border: 1px solid rgb(169, 68, 66);'>````` 限定公開記事のため引用できません `````</span>, <span style='border: 1px solid rgb(169, 68, 66);'>````` のため引用できません `````</span> |
 |      26309 | ````` CSFunction `````     |   0.147408  | <span style='border: 1px solid rgb(169, 68, 66);'>0.00033</span> | <span style='border: 1px solid rgb(251, 189, 8);'>````` LuaCSFunction `````</span>, <span style='border: 1px solid rgb(255, 145, 0);'>````` ▁LuaCSFunction `````</span>                          |
 |      64222 | ````` ▁LuaCSFunction ````` |   0.14924   | <span style='border: 1px solid rgb(255, 145, 0);'>0.0011</span>  |                                                                                                                                                                                                  |
 |      45534 | ````` フィンペ `````       |   0.169325  | <span style='border: 1px solid rgb(255, 145, 0);'>0.0011</span>  | <span style='border: 1px solid rgb(40, 167, 69);'>````` フィンペシア `````</span>                                                                                                                |
@@ -74,8 +74,8 @@
 
 |   token_id | token                      |   indicator | in_other_tokens                                                                                     |
 |------------|----------------------------|-------------|-----------------------------------------------------------------------------------------------------|
-|      16339 | ````` <0x8C><0x93>글 ````` | 1.21563e-14 | ````` ▁댓글 `````, ````` 댓글목록 `````, ````` 댓글 `````, ````` ▁댓글을 `````, ````` ▁댓글이 ````` |
-|      28024 | ````` <0x87>살론 `````     | 1.23415e-14 | ````` ▁햇살론 `````, ````` 햇살론 `````                                                             |
+|      16339 | ````` <0x8C><0x93>글 ````` | 1.21563e-14 | ````` ▁댓글을 `````, ````` 댓글목록 `````, ````` 댓글 `````, ````` ▁댓글이 `````, ````` ▁댓글 ````` |
+|      28024 | ````` <0x87>살론 `````     | 1.23415e-14 | ````` 햇살론 `````, ````` ▁햇살론 `````                                                             |
 |      12036 | ````` <0x80>로벌 `````     | 0.103891    | ````` ▁글로벌 `````, ````` 글로벌 `````                                                             |
 
 

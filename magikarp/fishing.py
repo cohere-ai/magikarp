@@ -215,7 +215,7 @@ def main(
             "Finished verification, wrote results to",
             write_verification_results(token_infos, model_id),
         )
-    make_tokens_report(model_id, toka, moda, token_infos, indicator_ix)
+    make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, threshold_ratio=threshold_ratio)
 
 
 if __name__ == "__main__":

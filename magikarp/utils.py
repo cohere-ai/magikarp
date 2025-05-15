@@ -228,8 +228,8 @@ VerificationResult = namedtuple(
 )
 
 
-def get_verified_candidates(toka, token_infos):
-    verification_candidates, verification_cand_threshold = candidates_for_verification(token_infos)
+def get_verified_candidates(toka, token_infos, threshold_ratio):
+    verification_candidates, verification_cand_threshold = candidates_for_verification(token_infos,threshold_ratio=threshold_ratio)
     if not all("max_prob" in c for c in verification_candidates):
         n_total = len(verification_candidates)
         verification_candidates = [c for c in verification_candidates if "max_prob" in c]
@@ -239,8 +239,8 @@ def get_verified_candidates(toka, token_infos):
     return verification_candidates, verification_cand_threshold
 
 
-def categorize_token_infos(toka, token_infos):
-    verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos)
+def categorize_token_infos(toka, token_infos, threshold_ratio=2):
+    verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos, threshold_ratio=threshold_ratio)
     for t in verification_candidates:
         t["readable_vocab"] = toka.vocab_to_readable_string(t["i"])
     single_byte_vocab = find_byte_tokens(toka, token_infos)

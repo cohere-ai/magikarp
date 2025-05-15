@@ -9,6 +9,7 @@
 * Tokenizer Info: 
   * Vocab Size: 65519
   * Tokenizer Class: SkyworkTokenizer
+  * Tokenizer Type: BPE
   * Token for verification prompt building: springframework
   * Token id for verification prompt building: 6688
 * Indicator summary: 

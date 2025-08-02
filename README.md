@@ -47,18 +47,3 @@ For models with tied embeddings, or for nicer visualizations and results, you wi
 ### Generating results
 
 * `generate_results.py`: Generates plots and markdown reports. This happens automatically after verification, but to regenerate you can `python generate_results.py [your_model_id]` and then look in `results`.
-
-
-## Contributing
-
-If you want to contribute results for additional models, please include:
-  * The `UNUSED_TOKENS` entry
-    * ensure tokenization tests (via `pytest`) pass for the new model, which uses this array as a model registry.
-  * A line in `run_verification.sh`
-  * All files in `results` that are not `.gitignore`'d
-
-## Model requests
-
-If you know of a model that may be interesting to analyze, but do not have the resources to run it yourself, feel free to open an issue. Please add the Hugging Face id, some information on how it is interesting in terms of tokenization, and keep in mind that the larger the model is, the less likely it is to be prioritized.
-
-

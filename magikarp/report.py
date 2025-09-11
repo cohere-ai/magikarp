@@ -1,5 +1,6 @@
 # functions for creating visualizations and reports
 from typing import Iterable, Optional, Union
+import shutil
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,8 +19,8 @@ from magikarp.utils import (
 )
 
 VERIFICATION_THRESHOLD = 0.01
-plt.rcParams["text.usetex"] = True
 
+plt.rcParams["text.usetex"] = shutil.which("latex") is not None
 
 def plot_xylabel(s):
     if "E_{" in s:

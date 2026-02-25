@@ -120,4 +120,5 @@ UNUSED_TOKENS = {
     "tiiuae/Falcon3-7B-Base": [1958], # random unused
     "kyutai/helium-1-preview-2b": np.arange(351,361), # unused utf8 fallback
     "trillionlabs/Trillion-7B-preview": [91553,16339,28024,54546], # from results
+    "baidu/ERNIE-4.5-21B-A3B-Thinking": np.arange(258,269), # high bytes
 }

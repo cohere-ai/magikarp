@@ -23,6 +23,7 @@ def model_needs_fast_tokenizer(model_id):
         or 'ibm-granite/' in model_id
         or 'trillionlabs/' in model_id
         or 'Llama-4' in model_id
+        or "GLM" in model_id
     )
 
 

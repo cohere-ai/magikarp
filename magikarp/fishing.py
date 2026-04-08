@@ -124,6 +124,7 @@ def load_analyzers(
     use_fast: Optional[bool] = None,
     trust_remote_code: bool = False,
     indicator_ix: int = 0,
+    device_map=None,
 ) -> tuple[TokenizerAnalyzer, Optional[ModelAnalyzer], dict]:
     toka = TokenizerAnalyzer(model_id, use_fast=use_fast, trust_remote_code=trust_remote_code)
 
@@ -140,6 +141,8 @@ def load_analyzers(
 
     if load_verifications and loaded_results:
         for token_id, res in loaded_results.items():
+            if token_id not in token_infos:
+                continue
             # ONLY load verification and maybe indicators + cached token 0, the rest was saved just for debugging
             for k in {"indicators", "indicator_names", "verification", "model_info"} & set(res.keys()):
                 token_infos[token_id][k] = res[k]  # overwritten if not avoid_loading_model
@@ -153,6 +156,7 @@ def load_analyzers(
             known_unused_tokens=known_unused_tokens,
             vocab_size_lb=len(toka.vocab_i2s),
             trust_remote_code=trust_remote_code,
+            device_map=device_map,
         )
         for token_id, indicators in enumerate(moda.undertrained_token_indicators):
             if token_id in token_infos:
@@ -181,6 +185,7 @@ def main(
     device: str = "cpu",
 ):
     known_unused_tokens = known_unused_tokens or UNUSED_TOKENS.get(model_id, [])
+    device_map = "auto" if device == "auto" else None
     toka, moda, token_infos = load_analyzers(
         model_id,
         avoid_loading_model=report_only,
@@ -188,6 +193,7 @@ def main(
         load_verifications=not overwrite,
         trust_remote_code=trust_remote_code,
         indicator_ix=indicator_ix,
+        device_map=device_map,
     )
     if not report_only:
         assert moda is not None  # for type checker
@@ -201,7 +207,8 @@ def main(
             f"Verifying {len(remaining_candidates)} of total {len(candidates)} candidates below threshold {threshold:.3f} of {moda.indicator_names[indicator_ix]!r} for model {model_id} with vocab size {len(token_infos)} on device {device}."
         )
         build_prompt_token = select_placeholder_token(toka, token_infos)
-        moda.model.to(device)
+        if device != "auto":
+            moda.model.to(device)
         t0 = time.perf_counter()
         for ii, token_info in enumerate(remaining_candidates):
             token_info["verification"], _ = verify_magikarp(toka, moda, token_info, build_prompt_token)

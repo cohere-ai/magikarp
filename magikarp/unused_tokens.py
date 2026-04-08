@@ -36,6 +36,8 @@ UNUSED_TOKENS = {
     "google/gemma-2b": GEMMA_UNUSED_TOKENS,
     "google/codegemma-7b": GEMMA_UNUSED_TOKENS,
     "google/gemma-3-12b-it": np.arange(483, 494),  # unused 245-255 fallback
+    "google/gemma-4-E2B-it": np.arange(6, 105),  # <unused0> to <unused88>
+    "google/gemma-4-31B-it": np.arange(6, 105),  # same tokenizer as gemma-4-E2B
     # gpt2 variants
     "openai-community/gpt2": GPT2_UNUSED_TOKENS,
     "openai-community/gpt2-medium": GPT2_UNUSED_TOKENS,
@@ -79,6 +81,7 @@ UNUSED_TOKENS = {
     "Qwen/Qwen2.5-7B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen2.5-7B-Instruct": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen3-32B": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen3.5-4B": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3.1-8B": TIKTOKEN_UNUSED_TOKENS,

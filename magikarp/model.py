@@ -15,7 +15,8 @@ class ModelAnalyzer:
         known_unused_tokens: Optional[list[int]] = None,
         trust_remote_code: bool = False,
         vocab_size_lb: int = 0,
-        embeddings = None, 
+        embeddings = None,
+        device_map=None,
     ):
         """Analyze a model for unused tokens.
         * model_id: The model id to analyze
@@ -28,10 +29,12 @@ class ModelAnalyzer:
             xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
 
             config = AutoConfig.from_pretrained(model_id,trust_remote_code=trust_remote_code)
-            if 'gemma-3' in model_id:  # gemmaaaaaaaaahhhh
+            if hasattr(config, 'text_config'):  # multimodal models (gemma-3/4, qwen3.5, ...)
                 for key, value in vars(config.text_config).items():
                     setattr(config, key, value)
 
+            if device_map is not None:
+                xargs["device_map"] = device_map
             self.model = AutoModelForCausalLM.from_pretrained(model_id, config=config, trust_remote_code=trust_remote_code, **xargs)
             self.tied_embeddings = self.model.config.tie_word_embeddings
             l = [
@@ -39,6 +42,8 @@ class ModelAnalyzer:
                 for module in self.model.modules()
                 if isinstance(module, Embedding) and module.weight.shape[0] >= vocab_size_lb
             ]
+            if len(l) > 1:
+                l = [max(l, key=lambda m: m.weight.shape[1])]
             assert len(l) == 1, f"Expected 1 Embedding module with dimension >= {vocab_size_lb}, but found {len(l)}: {l}"
             self.embeddings = l[0].weight.float().detach().numpy()
             if hasattr(self.model, "lm_head"):

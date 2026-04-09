@@ -45,7 +45,7 @@ class ModelAnalyzer:
             if len(l) > 1:
                 l = [max(l, key=lambda m: m.weight.shape[1])]
             assert len(l) == 1, f"Expected 1 Embedding module with dimension >= {vocab_size_lb}, but found {len(l)}: {l}"
-            self.embeddings = l[0].weight.float().detach().numpy()
+            self.embeddings = l[0].weight.float().detach().cpu().numpy()
             if hasattr(self.model, "lm_head"):
                 lm_head = self.model.lm_head
             elif hasattr(self.model, "embed_out"):  # NeoX
@@ -59,15 +59,15 @@ class ModelAnalyzer:
             else:
                 raise AttributeError("Could not find the language modelling head in the model")
 
-            self.output_embeddings = lm_head.weight.float().detach().numpy()
+            self.output_embeddings = lm_head.weight.float().detach().cpu().numpy()
             self.output_embeddings_has_bias = (
-                lm_head.bias is not None and np.linalg.norm(lm_head.bias.float().detach().numpy()) > 1e-3
+                lm_head.bias is not None and np.linalg.norm(lm_head.bias.float().detach().cpu().numpy()) > 1e-3
             )
             if self.output_embeddings_has_bias:
                 print(
                     f"Unexpectedly found bias in the final layer, this is may reduce effectiveness of under-trainedness indicators in ways that is out of scope of this code, especially if tied_embeddings is True (it is {self.tied_embeddings}) or output embedding based indicators are needed otherwise."
                 )
-                self.output_embeddings_bias = lm_head.bias.float().detach().numpy()
+                self.output_embeddings_bias = lm_head.bias.float().detach().cpu().numpy()
         elif embeddings is not None:
             self.tied_embeddings = False
             self.embeddings = embeddings.weight.to(dtype=torch.float32).numpy()

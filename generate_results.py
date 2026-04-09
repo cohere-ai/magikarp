@@ -37,7 +37,7 @@ for model_id in UNUSED_TOKENS.keys():
             trust_remote_code=trust_remote_code,
             indicator_ix=indicator_ix,
         )
-        make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, save_hires=save_hires)
+        make_tokens_report(model_id, toka, moda, token_infos, indicator_ix, threshold_ratio=2, save_hires=save_hires)
         if (
             all_tokens_plot
         ):  # additional plot for all verified tokens (usually, all tokens allowed in inputs) for a particular model

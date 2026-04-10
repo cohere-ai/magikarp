@@ -125,4 +125,5 @@ UNUSED_TOKENS = {
     "trillionlabs/Trillion-7B-preview": [91553,16339,28024,54546], # from results
     "baidu/ERNIE-4.5-21B-A3B-Thinking": np.arange(258,269), # high bytes
     "sarvamai/sarvam-30b": np.arange(29, 40),  # <unused23> to <unused33>
+    "zai-org/GLM-4.7-Flash": np.arange(154856, 154880),  # above vocab size
 }

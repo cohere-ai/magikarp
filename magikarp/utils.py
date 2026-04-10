@@ -239,8 +239,17 @@ def get_verified_candidates(toka, token_infos, threshold_ratio):
     return verification_candidates, verification_cand_threshold
 
 
-def categorize_token_infos(toka, token_infos, threshold_ratio=2):
-    verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos, threshold_ratio=threshold_ratio)
+def categorize_token_infos(toka, token_infos, threshold_ratio=2, use_all_verified=False):
+    if use_all_verified:
+        # Back-detect threshold from the max indicator value among verified tokens
+        verified_tokens = [t for t in token_infos.values() if "max_prob" in t and t["category"].startswith("OK")]
+        if verified_tokens:
+            verification_cand_threshold = max(t["main_indicator"] for t in verified_tokens)
+            verification_candidates = sorted(verified_tokens, key=lambda tc: tc["main_indicator"])
+        else:
+            verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos, threshold_ratio=threshold_ratio)
+    else:
+        verification_candidates, verification_cand_threshold = get_verified_candidates(toka, token_infos, threshold_ratio=threshold_ratio)
     for t in verification_candidates:
         t["readable_vocab"] = toka.vocab_to_readable_string(t["i"])
     single_byte_vocab = find_byte_tokens(toka, token_infos)

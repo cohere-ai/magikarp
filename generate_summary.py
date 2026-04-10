@@ -12,7 +12,7 @@ def process_model(model_id):
         model_id, indicator_ix=indicator_ix, avoid_loading_model=True, trust_remote_code=True
     )
     try:
-        categorized_tokens = categorize_token_infos(toka, token_infos)
+        categorized_tokens = categorize_token_infos(toka, token_infos, use_all_verified=True)
         mt_info = get_model_and_tokenizer_info(model_id, toka, token_infos)
     except Exception as e:
         print(f"Error processing model {model_id} - {e.__class__.__name__}: {e}")
@@ -54,6 +54,7 @@ def format_info(raw_info, target="notebook", num_tokens=10):
 
     info["# partial utf-8"] = len(vres.partial_utf8)
     info["# special"] = len(vres.specials)
+    info["Threshold"] = f"{raw_info['results'].threshold:.3f}"
     info["# verified"] = f"{len(verified_cand)}/{len(cand)}"
     info["# verified w/o s/b"] = f"{len(verified_cand_nosb)}/{len(cand_nosb)}"
 

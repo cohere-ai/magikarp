@@ -36,6 +36,8 @@ UNUSED_TOKENS = {
     "google/gemma-2b": GEMMA_UNUSED_TOKENS,
     "google/codegemma-7b": GEMMA_UNUSED_TOKENS,
     "google/gemma-3-12b-it": np.arange(483, 494),  # unused 245-255 fallback
+    "google/gemma-4-E2B-it": np.arange(6, 105),  # <unused0> to <unused88>
+    "google/gemma-4-31B-it": np.arange(6, 105),  # same tokenizer as gemma-4-E2B
     # gpt2 variants
     "openai-community/gpt2": GPT2_UNUSED_TOKENS,
     "openai-community/gpt2-medium": GPT2_UNUSED_TOKENS,
@@ -79,6 +81,7 @@ UNUSED_TOKENS = {
     "Qwen/Qwen2.5-7B": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen2.5-7B-Instruct": TIKTOKEN_UNUSED_TOKENS,
     "Qwen/Qwen3-32B": TIKTOKEN_UNUSED_TOKENS,
+    "Qwen/Qwen3.5-4B": TIKTOKEN_UNUSED_TOKENS,
     "stabilityai/stablelm-2-12b": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3-8B": TIKTOKEN_UNUSED_TOKENS,
     "meta-llama/Meta-Llama-3.1-8B": TIKTOKEN_UNUSED_TOKENS,
@@ -121,4 +124,5 @@ UNUSED_TOKENS = {
     "kyutai/helium-1-preview-2b": np.arange(351,361), # unused utf8 fallback
     "trillionlabs/Trillion-7B-preview": [91553,16339,28024,54546], # from results
     "baidu/ERNIE-4.5-21B-A3B-Thinking": np.arange(258,269), # high bytes
+    "sarvamai/sarvam-30b": np.arange(29, 40),  # <unused23> to <unused33>
 }

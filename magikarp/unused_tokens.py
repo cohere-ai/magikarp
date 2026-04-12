@@ -38,6 +38,8 @@ UNUSED_TOKENS = {
     "google/gemma-3-12b-it": np.arange(483, 494),  # unused 245-255 fallback
     "google/gemma-4-E2B-it": np.arange(6, 105),  # <unused0> to <unused88>
     "google/gemma-4-31B-it": np.arange(6, 105),  # same tokenizer as gemma-4-E2B
+    "google/gemma-4-E4B-it": np.arange(6, 105),  # same tokenizer as gemma-4-E2B
+    "google/gemma-4-26B-A4B-it": np.arange(6, 105),  # same tokenizer as gemma-4-E2B
     # gpt2 variants
     "openai-community/gpt2": GPT2_UNUSED_TOKENS,
     "openai-community/gpt2-medium": GPT2_UNUSED_TOKENS,

@@ -3,7 +3,7 @@ from typing import Optional
 
 import numpy as np
 from torch.nn import Embedding
-from transformers import AutoModelForCausalLM, AutoConfig
+from transformers import AutoModelForCausalLM, AutoConfig, AutoModelForImageTextToText
 
 from magikarp.utils import embedding_distance_metrics
 
@@ -29,14 +29,27 @@ class ModelAnalyzer:
             xargs = dict(use_mamba_kernels=False) if "Jamba" in model_id else {}  # Jamba crashes by default
 
             config = AutoConfig.from_pretrained(model_id,trust_remote_code=trust_remote_code)
-            if hasattr(config, 'text_config'):  # multimodal models (gemma-3/4, qwen3.5, ...)
-                for key, value in vars(config.text_config).items():
-                    setattr(config, key, value)
+            use_image_text_to_text = False
+            if hasattr(config, 'text_config'):  # multimodal models (gemma-3/4, qwen3.5, cohere2-vision, ...)
+                # If the outer config class is registered for CausalLM (e.g. gemma-3/4), flatten attrs onto it.
+                # Otherwise (e.g. cohere2_vision), load the full image-text-to-text model so checkpoint
+                # weight names (with language_model. prefix) match.
+                if type(config) in AutoModelForCausalLM._model_mapping:
+                    for key, value in vars(config.text_config).items():
+                        setattr(config, key, value)
+                else:
+                    use_image_text_to_text = True
 
             if device_map is not None:
                 xargs["device_map"] = device_map
-            self.model = AutoModelForCausalLM.from_pretrained(model_id, config=config, trust_remote_code=trust_remote_code, **xargs)
-            self.tied_embeddings = self.model.config.tie_word_embeddings
+            if use_image_text_to_text:
+                self.model = AutoModelForImageTextToText.from_pretrained(model_id, trust_remote_code=trust_remote_code, **xargs)
+            else:
+                self.model = AutoModelForCausalLM.from_pretrained(model_id, config=config, trust_remote_code=trust_remote_code, **xargs)
+            model_cfg = self.model.config
+            if hasattr(model_cfg, 'text_config') and not hasattr(model_cfg, 'tie_word_embeddings'):
+                model_cfg = model_cfg.text_config
+            self.tied_embeddings = getattr(model_cfg, 'tie_word_embeddings', False)
             l = [
                 module
                 for module in self.model.modules()
@@ -48,6 +61,8 @@ class ModelAnalyzer:
             self.embeddings = l[0].weight.float().detach().cpu().numpy()
             if hasattr(self.model, "lm_head"):
                 lm_head = self.model.lm_head
+            elif hasattr(self.model, "language_model") and hasattr(self.model.language_model, "lm_head"):  # multimodal (cohere2_vision, ...)
+                lm_head = self.model.language_model.lm_head
             elif hasattr(self.model, "embed_out"):  # NeoX
                 lm_head = self.model.embed_out
             elif hasattr(self.model, "model") and hasattr(self.model.model, "transformer"):

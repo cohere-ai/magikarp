@@ -60,6 +60,13 @@ for arg in "$@"; do
             python magikarp/fishing.py --model_id "CohereForAI/c4ai-command-r-v01"
             python magikarp/fishing.py --model_id "CohereForAI/c4ai-command-r-plus"
             python magikarp/fishing.py --model_id "CohereForAI/aya-23-35B"
+            # command-a-plus (W4A4 cohere2_vision MoE) can't be loaded via AutoModel as of
+            # transformers main 2026-05-20 due to checkpoint/transformers packaging skew.
+            # Workflow: indicators via direct safetensors read, then verification via vLLM.
+            python scripts/extract_embeddings_indicators.py --model_id "CohereLabs/command-a-plus-05-2026-w4a4"
+            # In another shell, with 2x H100 free:
+            #   vllm serve CohereLabs/command-a-plus-05-2026-w4a4 -tp 2 --port 8765 --host 127.0.0.1 --max-model-len 4096
+            python scripts/verify_via_vllm.py --model_id "CohereLabs/command-a-plus-05-2026-w4a4" --base_url http://127.0.0.1:8765
             ;;        
         "qwen")
             python magikarp/fishing.py --model_id "Qwen/Qwen1.5-MoE-A2.7B"

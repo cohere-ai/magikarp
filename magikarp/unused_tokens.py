@@ -31,6 +31,7 @@ UNUSED_TOKENS = {
     "CohereForAI/c4ai-command-r-plus": COHERE_UNUSED_TOKENS,
     "CohereForAI/aya-23-35B": COHERE_UNUSED_TOKENS,
     "CohereLabs/tiny-aya-global": np.arange(192,203), # unused utf8 fallback
+    "CohereLabs/command-a-plus-05-2026-w4a4": np.arange(255032, 262144),  # padded vocab above tokenizer size (255000 BPE + 32 special)
     # required: gemma
     "google/gemma-7b": GEMMA_UNUSED_TOKENS,
     "google/gemma-2b": GEMMA_UNUSED_TOKENS,

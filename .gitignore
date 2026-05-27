@@ -2,6 +2,9 @@
 # weights
 *.safetensors
 
+# Claude Code session state
+.claude/
+
 # verification results are commited only in jsonl.gz
 results/verifications/*.jsonl
 
